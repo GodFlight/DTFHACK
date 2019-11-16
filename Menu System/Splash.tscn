@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Menu System/Splash.gd" type="Script" id=1]
+[ext_resource path="res://Menu System/Base Font.tres" type="DynamicFont" id=2]
+
+[node name="Splash" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 10
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+margin_top = 115.0
+margin_right = 640.0
+margin_bottom = 131.0
+grow_vertical = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "poheru"
+align = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+margin_top = 257.0
+margin_right = 640.0
+margin_bottom = 273.0
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 2 )
+text = "press any button to continue"
+align = 1
+valign = 1
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+margin_top = 283.0
+margin_right = 640.0
+margin_bottom = 307.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_top = 317.0
+margin_right = 640.0
+margin_bottom = 333.0
+grow_vertical = 2
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 2 )
+text = "made in godot by:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+editor/display_folded = true
+margin_top = 343.0
+margin_right = 640.0
+margin_bottom = 359.0
+grow_vertical = 2
+size_flags_vertical = 3
+custom_constants/separation = 25
+
+[node name="Label4" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_right = 128.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 2 )
+text = "sleonard"
+
+[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 153.0
+margin_right = 223.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 2 )
+text = "rkeli"
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 248.0
+margin_right = 360.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 2 )
+text = "sselusa"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 385.0
+margin_right = 497.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 2 )
+text = "sbosmer"

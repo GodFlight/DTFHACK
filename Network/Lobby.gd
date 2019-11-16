@@ -1,13 +1,12 @@
 extends Node
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+func create_server_press(port_str, player_name):
+	print("Server creation!")
+	print("Player: ", player_name, "	Port: ", port_str)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func connect_to_server_press(address_str, port_str, player_name):
+	print("Client creation!")
+	print("Player: ", player_name, "	Server: ", address_str, "	Port: ", port_str)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func start_game():
+	print("Start game")

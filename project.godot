@@ -16,13 +16,17 @@ _global_script_class_icons={
 [application]
 
 config/name="DTF_HACK"
-run/main_scene="res://TestScene.tscn"
+run/main_scene="res://Menu System/Menu_Scene.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Lobby="*res://Network/Lobby.gd"
 
 [display]
 
 window/size/width=640
-window/size/height=480
+window/size/height=360
 window/size/test_width=1920
 window/size/test_height=1080
 window/vsync/use_vsync=false
