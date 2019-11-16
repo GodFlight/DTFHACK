@@ -19,22 +19,22 @@ func _process(delta):
 		velocity = Vector2.ZERO
 
 func _check_input(delta : float):
-	if Input.is_action_just_pressed("right"):
+	if Input.is_action_just_pressed("player_right"):
 		velocity.x = 1
 		if ((_check_direction(delta))):
 			one_tap = true
 			return
-	elif Input.is_action_just_pressed("left"):
+	elif Input.is_action_just_pressed("player_left"):
 		velocity.x = -1
 		if ((_check_direction(delta))):
 			one_tap = true
 			return
-	elif Input.is_action_just_pressed("up"):
+	elif Input.is_action_just_pressed("player_up"):
 		velocity.y = -1
 		if ((_check_direction(delta))):
 			one_tap = true
 			return
-	elif Input.is_action_just_pressed("down"):
+	elif Input.is_action_just_pressed("player_down"):
 		velocity.y = 1
 		if ((_check_direction(delta))):
 			one_tap = true
