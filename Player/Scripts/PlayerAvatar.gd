@@ -9,13 +9,13 @@ func _ready():
 func _process(delta):
 	if (move_and_collide(velocity * delta)):
 		velocity = Vector2.ZERO
-	if Input.is_action_pressed("right"):
+	if Input.is_action_pressed("player_right"):
 		velocity.x += 1
-	if Input.is_action_pressed("left"):
+	if Input.is_action_pressed("player_left"):
 		velocity.x -= 1
-	if Input.is_action_pressed("Up"):
+	if Input.is_action_pressed("player_up"):
 		velocity.y -= 1
-	if Input.is_action_pressed("Down"):
+	if Input.is_action_pressed("player_down"):
 		velocity.y += 1
 	velocity *= 1.5
 
