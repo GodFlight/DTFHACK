@@ -56,7 +56,6 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 [node name="TestScene" type="Node2D"]
 
 [node name="Character" parent="." instance=ExtResource( 1 )]
-position = Vector2( 6.55872, 7.5487 )
 
 [node name="Back" type="TileMap" parent="."]
 tile_set = SubResource( 3 )
