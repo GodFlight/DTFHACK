@@ -5,7 +5,7 @@ const speed = 500
 var one_tap = true
 
 func _ready():
-	$AreaTakeDamage.connect("area_entered", self, "take_damage")
+	$AreaTakeDamage.connect("area_entered", self, "damage")
 	$AreaAttack.connect("area_entered", self, "attack")
 	pass
 
@@ -56,22 +56,19 @@ func _check_direction(delta : float) -> bool :
 	return false
 
 func attack(body):
-	if (body != self && body.has_method("_take_damage")):
-		body.take_damage(body)
+	if (body != self && body.has_method("damage")):
+		body.damage(body)
 	pass
-
-func take_damage(body):
 	if (body != self):
 		print("check")
 	pass
 
+func damage(amount : int):
+	print("Taken ", amount, " damage!")
+
 func _physics_process(delta):
 
 	pass
-
-func damage(amount : int):
-	print("Taken ", amount, " damage!")
-	
 
 func slow(percent : int):
 	print("Slowing down by ", percent, " %")
