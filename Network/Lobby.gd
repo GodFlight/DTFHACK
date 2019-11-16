@@ -70,7 +70,7 @@ func _load_my_player():
 	var my_node = player_scene.instance()
 	my_node.set_name(str(my_pid))
 	my_node.set_network_master(my_pid)
-	my_node.get_node("PlayerAvatar2").is_controlled = true
+	my_node.get_node("PlayerAvatar").is_controlled = true
 	get_node("/root/Game/").add_child(my_node)
 	my_node.global_position = Vector2()
 	if my_pid == 1:
