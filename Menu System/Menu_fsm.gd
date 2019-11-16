@@ -16,6 +16,8 @@ var Menu = {
 func _process(delta):
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().quit()
+	if Input.is_key_pressed(KEY_F):
+		OS.execute(OS.get_executable_path(), OS.get_cmdline_args(), false, [])
 
 func _ready():
 	change_screen_to("Splash")
