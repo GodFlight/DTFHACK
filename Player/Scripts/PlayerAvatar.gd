@@ -64,3 +64,7 @@ func _physics_process(delta):
 
 func damage(amount : int):
 	print("Taken ", amount, " damage!")
+	
+
+func slow(percent : int):
+	print("Slowing down by ", percent, " %")
