@@ -7,43 +7,6 @@
 [ext_resource path="res://Enviroment/Spikes.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Enviroment/SpawnPoint.tscn" type="PackedScene" id=6]
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 1, 1 )
-
-[sub_resource type="Animation" id=5]
-resource_name = "default"
-length = 6.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.7, 1.4, 2.1, 2.8, 3.5, 4.2, 4.9, 5.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 2, 3, 8, 4, 5, 8, 6, 7, 8 ]
-}
-
-[sub_resource type="Animation" id=6]
-resource_name = "default"
-length = 6.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.7, 1.4, 2.1, 2.8, 3.5, 4.2, 4.9, 5.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 2, 3, 8, 4, 5, 8, 6, 7, 8 ]
-}
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1, 1 )
 
@@ -81,6 +44,41 @@ tracks/0/keys = {
 "values": [ 2, 3, 8, 4, 5, 8, 6, 7, 8 ]
 }
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 1, 1 )
+
+[sub_resource type="Animation" id=5]
+length = 6.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1.4, 2.1, 2.8, 3.5, 4.2, 4.9, 5.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 8, 4, 5, 8, 6, 7, 8 ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 6.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1.4, 2.1, 2.8, 3.5, 4.2, 4.9, 5.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 8, 4, 5, 8, 6, 7, 8 ]
+}
+
 [node name="Map2" index="0" instance=ExtResource( 1 )]
 
 [node name="Graphics" parent="Map" index="0"]
@@ -102,7 +100,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Environment/PortalSystem3/Teleport1" index="0"]
 scale = Vector2( 7, 7 )
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Map/Environment/PortalSystem3/Teleport1" index="1"]
 scale = Vector2( 2, 2 )
@@ -112,7 +110,7 @@ frame = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Map/Environment/PortalSystem3/Teleport1" index="2"]
 playback_speed = 4.0
-anims/default = SubResource( 5 )
+anims/default = SubResource( 2 )
 
 [node name="Teleport2" type="Area2D" parent="Map/Environment/PortalSystem3" index="1"]
 position = Vector2( 200, 216 )
@@ -123,7 +121,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Environment/PortalSystem3/Teleport2" index="0"]
 scale = Vector2( 7, 7 )
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Map/Environment/PortalSystem3/Teleport2" index="1"]
 scale = Vector2( 2, 2 )
@@ -133,7 +131,7 @@ frame = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Map/Environment/PortalSystem3/Teleport2" index="2"]
 playback_speed = 4.0
-anims/default = SubResource( 6 )
+anims/default = SubResource( 3 )
 
 [node name="Delay" type="Timer" parent="Map/Environment/PortalSystem3" index="2"]
 
@@ -157,7 +155,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Environment/PortalSystem/Teleport1" index="0"]
 scale = Vector2( 7, 7 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="Map/Environment/PortalSystem/Teleport1" index="1"]
 scale = Vector2( 2, 2 )
@@ -167,7 +165,7 @@ frame = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Map/Environment/PortalSystem/Teleport1" index="2"]
 playback_speed = 4.0
-anims/default = SubResource( 2 )
+anims/default = SubResource( 5 )
 
 [node name="Teleport2" type="Area2D" parent="Map/Environment/PortalSystem" index="1"]
 position = Vector2( 360, 264 )
@@ -178,7 +176,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Environment/PortalSystem/Teleport2" index="0"]
 scale = Vector2( 7, 7 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="Map/Environment/PortalSystem/Teleport2" index="1"]
 scale = Vector2( 2, 2 )
@@ -188,7 +186,7 @@ frame = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Map/Environment/PortalSystem/Teleport2" index="2"]
 playback_speed = 4.0
-anims/default = SubResource( 3 )
+anims/default = SubResource( 6 )
 
 [node name="Delay" type="Timer" parent="Map/Environment/PortalSystem" index="2"]
 
@@ -205,7 +203,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Environment/PortalSystem2/Teleport1" index="0"]
 scale = Vector2( 7, 7 )
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Map/Environment/PortalSystem2/Teleport1" index="1"]
 scale = Vector2( 2, 2 )
@@ -215,7 +213,7 @@ frame = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Map/Environment/PortalSystem2/Teleport1" index="2"]
 playback_speed = 4.0
-anims/default = SubResource( 5 )
+anims/default = SubResource( 2 )
 
 [node name="Teleport2" type="Area2D" parent="Map/Environment/PortalSystem2" index="1"]
 position = Vector2( 360, 168 )
@@ -226,7 +224,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Environment/PortalSystem2/Teleport2" index="0"]
 scale = Vector2( 7, 7 )
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Map/Environment/PortalSystem2/Teleport2" index="1"]
 scale = Vector2( 2, 2 )
@@ -236,9 +234,12 @@ frame = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Map/Environment/PortalSystem2/Teleport2" index="2"]
 playback_speed = 4.0
-anims/default = SubResource( 6 )
+anims/default = SubResource( 3 )
 
 [node name="Delay" type="Timer" parent="Map/Environment/PortalSystem2" index="2"]
+
+[node name="Spawn Points" parent="Map" index="2"]
+visible = false
 
 [node name="Spawn Point" parent="Map/Spawn Points" index="0" instance=ExtResource( 6 )]
 position = Vector2( 296, 200 )

@@ -9,8 +9,20 @@ var is_controlled = false
 func _ready():
 	$AreaAttack.connect("area_entered", self, "area_collision")
 	$AreaAttack.connect("body_entered", self, "collision")
+	$AnimationPlayer.play("Idle")
 #	$AreaTakeDamage.connect("area_entered", self, "damage")
 	pass
+
+remotesync func set_sprite(num):
+	match num:
+		1:
+			$"Sprite".texture = preload("res://Assets/Characters/purple.png")
+		2:
+			$"Sprite".texture = preload("res://Assets/Characters/blue.png")
+		3:
+			$"Sprite".texture = preload("res://Assets/Characters/red.png")
+		_:
+			$"Sprite".texture = preload("res://Assets/Characters/yellow.png")
 
 func _process(delta):
 	if not is_controlled:
@@ -37,11 +49,16 @@ func _physics_process(delta : float):
 	if col:
 		if tmp_velocity != Vector2.ZERO:
 			_turn_around()
+			
 		change_velocity(Vector2.ZERO)
 
 remotesync func change_velocity(input: Vector2):
 	velocity = input
 	tmp_velocity = velocity
+	if velocity == Vector2.ZERO:
+		$AnimationPlayer.play("Idle")
+	else:
+		$AnimationPlayer.play("Fly")
 
 func _possible_to_move(delta : float, input : Vector2):
 	var check_move = test_move(transform, input * delta)

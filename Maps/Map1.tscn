@@ -256,6 +256,9 @@ anims/default = SubResource( 3 )
 
 [node name="Delay" type="Timer" parent="Map/Environment/PortalSystem4" index="2"]
 
+[node name="Spawn Points" parent="Map" index="2"]
+visible = false
+
 [node name="Spawn Point" parent="Map/Spawn Points" index="0" instance=ExtResource( 6 )]
 position = Vector2( 184, 168 )
 

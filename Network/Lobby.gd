@@ -151,12 +151,12 @@ remote func register_player(pl_name):
 	player_info[id] = {
 		"name": pl_name,
 		"color": Color.black,
-		"type": len(player_info) - 1
+		"type": 0
 	}
 	var my_id = get_tree().get_network_unique_id()
 	if my_id == 1:
-		print(len(player_info))
 		player_info[id].color = player_colors[len(player_info) - 1]
+		player_info[id].type = len(player_info) - 1
 		rpc("sync_info", id, player_info[id])
 	emit_signal("player_sent_info")
 
