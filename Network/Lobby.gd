@@ -72,7 +72,7 @@ func _load_my_player():
 	my_node.set_network_master(my_pid)
 	my_node.get_node("PlayerAvatar").is_controlled = true
 	get_node("/root/Game/").add_child(my_node)
-	my_node.global_position = Vector2()
+	my_node.global_position = Vector2(64, 64)
 	if my_pid == 1:
 		my_node.global_position = Vector2(32, 32)
 
@@ -86,7 +86,7 @@ func _load_other_players():
 		player_node.set_name(str(pid))
 		player_node.set_network_master(pid)
 		get_node("/root/Game").add_child(player_node)
-		player_node.global_position = Vector2()
+		player_node.global_position = Vector2(64, 64)
 		if pid == 1:
 			player_node.global_position = Vector2(32, 32)
 
