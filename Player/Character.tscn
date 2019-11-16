@@ -7,9 +7,15 @@
 extents = Vector2( 8, 8 )
 
 [node name="Character" type="Node2D"]
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="PlayerAvatar2" type="KinematicBody2D" parent="."]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAvatar2"]
 shape = SubResource( 1 )
@@ -20,9 +26,5 @@ hframes = 4
 frame = 1
 region_enabled = true
 region_rect = Rect2( 366.737, 270.31, 65.5204, 17.9246 )
-
-[node name="Camera2D" type="Camera2D" parent="PlayerAvatar2"]
-current = true
-zoom = Vector2( 0.5, 0.5 )
 
 [node name="Node2D" type="Node2D" parent="."]
