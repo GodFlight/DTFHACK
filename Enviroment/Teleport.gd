@@ -31,4 +31,5 @@ func _teleport(body : PhysicsBody2D):
 		
 func _player_exited(body : PhysicsBody2D):
 	player_on_teleport = false
-
+	get_parent().timer_started = false
+		
