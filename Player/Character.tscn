@@ -3,14 +3,19 @@
 [ext_resource path="res://Player/Scripts/PlayerAvatar.gd" type="Script" id=1]
 [ext_resource path="res://Assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=2]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 5.94244
-height = 0.418947
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 8 )
 
 [node name="Character" type="Node2D"]
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="PlayerAvatar2" type="KinematicBody2D" parent="."]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAvatar2"]
 shape = SubResource( 1 )

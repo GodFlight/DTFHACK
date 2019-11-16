@@ -3,13 +3,13 @@
 [ext_resource path="res://Player/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=2]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
+[sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
+[sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
-[sub_resource type="TileSet" id=3]
+[sub_resource type="TileSet" id=1]
 0/name = "0x72_DungeonTilesetII_v1.3.png 0"
 0/texture = ExtResource( 2 )
 0/tex_offset = Vector2( 0, 0 )
@@ -22,7 +22,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 1 ),
+"shape": SubResource( 2 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
@@ -48,7 +48,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": SubResource( 3 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 2/z_index = 0
@@ -56,10 +56,14 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 [node name="TestScene" type="Node2D"]
 
 [node name="Character" parent="." instance=ExtResource( 1 )]
+position = Vector2( 111.641, 109.648 )
 
 [node name="Back" type="TileMap" parent="."]
-tile_set = SubResource( 3 )
+tile_set = SubResource( 1 )
 cell_size = Vector2( 16, 16 )
 collision_use_kinematic = true
 format = 1
-tile_data = PoolIntArray( -131077, 2, 0, -131076, 2, 0, -131075, 2, 0, -131074, 2, 0, -131073, 2, 0, -196608, 2, 0, -196607, 2, 0, -196606, 2, 0, -196605, 2, 0, -65541, 2, 0, -131069, 2, 0, -5, 2, 0, -65533, 2, 0, 65531, 2, 0, 3, 2, 0, 131067, 2, 0, 65539, 2, 0, 196603, 2, 0, 131075, 2, 0, 262139, 2, 0, 196611, 2, 0, 327675, 2, 0, 262147, 2, 0, 393211, 2, 0, 393212, 2, 0, 393213, 2, 0, 393214, 2, 0, 393215, 2, 0, 327680, 2, 0, 327681, 2, 0, 327682, 2, 0, 327683, 2, 0 )
+tile_data = PoolIntArray( 131075, 2, 0, 131076, 2, 0, 131077, 2, 0, 131078, 2, 0, 131079, 2, 0, 131080, 2, 0, 131081, 2, 0, 131082, 2, 0, 131083, 2, 0, 131084, 2, 0, 131085, 2, 0, 196611, 2, 0, 196621, 2, 0, 262147, 2, 0, 262157, 2, 0, 262158, 2, 0, 327683, 2, 0, 327694, 2, 0, 393219, 2, 0, 393230, 2, 0, 458755, 2, 0, 458766, 2, 0, 458767, 2, 0, 524291, 2, 0, 524303, 2, 0, 589827, 2, 0, 589839, 2, 0, 655363, 2, 0, 655370, 2, 0, 655371, 2, 0, 655372, 2, 0, 655373, 2, 0, 655374, 2, 0, 655375, 2, 0, 720899, 2, 0, 720900, 2, 0, 720901, 2, 0, 720902, 2, 0, 720903, 2, 0, 720904, 2, 0, 720905, 2, 0 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 320, 180 )
