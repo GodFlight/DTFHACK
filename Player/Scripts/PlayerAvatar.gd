@@ -1,21 +1,29 @@
 extends KinematicBody2D
 
-onready var velocity = Vector2(0.0, 0.0)
-var speed = 500
+onready var velocity = Vector2.ZERO
+const speed = 500
 var one_tap = true
 
 func _ready():
-	$AreaTakeDamage.connect("area_entered", self, "_take_damage")
-	$AreaAttack.connect("area_entered", self, "_attack")
-	pass # Replace with function body.
+	$AreaTakeDamage.connect("area_entered", self, "damage")
+	$AreaAttack.connect("area_entered", self, "attack")
+	pass
 
 func _process(delta):
 	if one_tap == true:
 		_check_input(delta)
-	velocity = velocity.normalized()
+		_change_body_direction()
 	if (move_and_collide(velocity * speed * delta)):
 		one_tap = true
 		velocity = Vector2.ZERO
+
+func _change_body_direction():
+	if (velocity.y == 1):
+		set_rotation_degrees(180)
+	elif(velocity.y == -1):
+		set_rotation_degrees(0)
+	elif (velocity.y == 0):
+		set_rotation_degrees(velocity.x * 90)
 
 func _check_input(delta : float):
 	if Input.is_action_just_pressed("player_right"):
@@ -47,24 +55,19 @@ func _check_direction(delta : float) -> bool :
 		return true
 	return false
 
-func _attack(body):
-	if (body != self && body.has_method("_take_damage")):
-		body.take_damage(body)
+func attack(body):
+	if (body != self && body.has_method("damage")):
+		body.damage(body)
 	pass
-
-func _take_damage(body):
 	if (body != self):
 		print("check")
 	pass
 
-
-func _physics_process(delta):
-
-	pass
-
 func damage(amount : int):
 	print("Taken ", amount, " damage!")
-	
+
+func _physics_process(delta):
+	pass
 
 func slow(percent : int):
 	print("Slowing down by ", percent, " %")

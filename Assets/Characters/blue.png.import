@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spikes.png-78fb6c5b7c62c5e94301b5874d7a443e.stex"
+path="res://.import/blue.png-849970d3094a2cec83931db019e934cd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/spikes.png"
-dest_files=[ "res://.import/spikes.png-78fb6c5b7c62c5e94301b5874d7a443e.stex" ]
+source_file="res://Assets/Characters/blue.png"
+dest_files=[ "res://.import/blue.png-849970d3094a2cec83931db019e934cd.stex" ]
 
 [params]
 
