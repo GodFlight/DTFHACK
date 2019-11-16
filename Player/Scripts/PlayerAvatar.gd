@@ -22,7 +22,7 @@ func _process(delta):
 		input.x = 1
 	if Input.is_action_just_pressed("player_left"):
 		input.x = -1
-	print(input)
+#	print(input)
 #	if not _possible_to_move(input):
 #		return
 	if velocity == Vector2.ZERO and input != Vector2.ZERO:
@@ -45,7 +45,7 @@ remote func sync_pos(pos):
 	position = pos
 
 remotesync func _change_body_direction():
-	print(velocity)
+#	print(velocity)
 	if (velocity.y == 1):
 		set_rotation_degrees(180)
 	elif(velocity.y == -1):
@@ -54,14 +54,16 @@ remotesync func _change_body_direction():
 		set_rotation_degrees(velocity.x * 90)
 
 func attack(body):
-	if (body != self && body.has_method("damage")):
-		body.damage(body)
-	pass
-	if (body != self):
-		print("check")
+#	if (body.name == "AreaTakeDamage"):
+#		print("ATTACK!!!!!")
+#	print(body.name)
+	if (body != self and body.get_node("..").has_method("damage")):
+#		print("HAS METHOD: ", body)
+		body.get_node("..").damage(1)
 	pass
 
 func damage(amount : int):
+	print("TAKE DAMAGE")
 	print("Taken ", amount, " damage!")
 
 func slow(percent : int):
