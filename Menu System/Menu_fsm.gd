@@ -18,6 +18,8 @@ func _process(delta):
 		get_tree().quit()
 	if Input.is_action_just_pressed("ui_focus_next"):
 		OS.execute(OS.get_executable_path(), OS.get_cmdline_args(), false, [])
+	if Input.is_action_just_pressed("ui_home"):
+		Lobby.__debug_launch()
 
 func _ready():
 	change_screen_to("Splash")
