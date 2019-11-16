@@ -22,15 +22,14 @@ func _process(delta):
 		input.x = 1
 	if Input.is_action_just_pressed("player_left"):
 		input.x = -1
-#	print(input)
-#	if not _possible_to_move(input):
+#	if _possible_to_move(delta, input):
 #		return
 	if velocity == Vector2.ZERO and input != Vector2.ZERO:
 		rpc("change_velocity", input)
 		rpc("sync_pos", position)
 		rpc("_change_body_direction")
 
-func _physics_process(delta):
+func _physics_process(delta : float):
 	var col = move_and_collide(velocity * delta * speed)
 	if col:
 		change_velocity(Vector2.ZERO)
@@ -38,14 +37,16 @@ func _physics_process(delta):
 remotesync func change_velocity(input: Vector2):
 	velocity = input
 
-func _possible_to_move(input):
-	return true
+func _possible_to_move(delta : float, input : Vector2):
+	var check_move = test_move(transform, input * delta)
+	if !check_move:
+		return true
+	return false
 
 remote func sync_pos(pos):
 	position = pos
 
 remotesync func _change_body_direction():
-#	print(velocity)
 	if (velocity.y == 1):
 		set_rotation_degrees(180)
 	elif(velocity.y == -1):
@@ -54,16 +55,13 @@ remotesync func _change_body_direction():
 		set_rotation_degrees(velocity.x * 90)
 
 func attack(body):
-#	if (body.name == "AreaTakeDamage"):
-#		print("ATTACK!!!!!")
-#	print(body.name)
 	if (body != self and body.get_node("..").has_method("damage")):
-#		print("HAS METHOD: ", body)
+		print("Attack!")
 		body.get_node("..").damage(1)
 	pass
 
 func damage(amount : int):
-	print("TAKE DAMAGE")
+	queue_free()
 	print("Taken ", amount, " damage!")
 
 func slow(percent : int):
