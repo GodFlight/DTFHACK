@@ -68,3 +68,10 @@ func take_damage(body):
 func _physics_process(delta):
 
 	pass
+
+func damage(amount : int):
+	print("Taken ", amount, " damage!")
+	
+
+func slow(percent : int):
+	print("Slowing down by ", percent, " %")
