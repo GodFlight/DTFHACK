@@ -1,7 +1,7 @@
 extends Area2D
 
 func _ready() -> void:
-	connect("body_entered", self, "_on_Spikes_body_entered")
+	$AnimationPlayer.play("default")
 	pass
 
 
