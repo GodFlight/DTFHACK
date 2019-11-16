@@ -90,9 +90,10 @@ func collision(body: PhysicsBody2D):
 #		body.get_node("..").damage(1)
 #
 remotesync func damage(amount : int):
-	print("PEPEGUS MAXIMUS")
-	queue_free()
-	print("Taken ", amount, " damage!")
+	Respawn.player(get_tree().get_network_unique_id())
+#	print("PEPEGUS MAXIMUS")
+#	queue_free()
+#	print("Taken ", amount, " damage!")
 
 func slow(percent : int):
 	print("Slowing down by ", percent, " %")
