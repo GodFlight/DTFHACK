@@ -4,8 +4,8 @@
 [ext_resource path="res://Assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 6.80179
-height = 3.92983
+radius = 5.94244
+height = 0.418947
 
 [node name="Character" type="Node2D"]
 
@@ -21,9 +21,5 @@ hframes = 4
 frame = 1
 region_enabled = true
 region_rect = Rect2( 366.737, 270.31, 65.5204, 17.9246 )
-
-[node name="Camera2D" type="Camera2D" parent="PlayerAvatar2"]
-current = true
-zoom = Vector2( 0.5, 0.5 )
 
 [node name="Node2D" type="Node2D" parent="."]

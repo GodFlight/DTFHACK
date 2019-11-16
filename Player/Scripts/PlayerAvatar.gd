@@ -19,6 +19,8 @@ func _process(delta):
 		velocity.y += 1
 	velocity *= 1.5
 
-func _physics_process(delta):
-		
+func _physics_process(delta):		
 	pass
+
+func damage(amount : int):
+	print("Taken ", amount, " damage!")
