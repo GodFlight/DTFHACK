@@ -12,7 +12,7 @@ func _ready():
 func _process(delta):
 	if one_tap == true:
 		_check_input(delta)
-		_change_body_direction()		
+		_change_body_direction()
 	if (move_and_collide(velocity * speed * delta)):
 		one_tap = true
 		velocity = Vector2.ZERO
@@ -67,7 +67,6 @@ func damage(amount : int):
 	print("Taken ", amount, " damage!")
 
 func _physics_process(delta):
-
 	pass
 
 func slow(percent : int):

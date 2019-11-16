@@ -16,7 +16,7 @@ var Menu = {
 func _process(delta):
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().quit()
-	if Input.is_key_pressed(KEY_F):
+	if Input.is_action_just_pressed("ui_focus_next"):
 		OS.execute(OS.get_executable_path(), OS.get_cmdline_args(), false, [])
 
 func _ready():
