@@ -6,7 +6,7 @@ const MAX_PLAYERS = 4
 var player_info = {}
 var player_name
 var player_scene = preload("res://Player/Character.tscn")
-var current_map = preload("res://Game.tscn")
+var current_map = preload("res://Maps/Map1.tscn")
 
 signal player_sent_info
 signal session_ended
@@ -56,6 +56,10 @@ remotesync func _start():
 	_load_level()
 	_load_my_player()
 	_load_other_players()
+	if get_tree().get_network_unique_id() == 1:
+		Respawn.init()
+		for pid in player_info:
+			Respawn.player(pid)
 
 
 func _load_level():
@@ -70,11 +74,8 @@ func _load_my_player():
 	var my_node = player_scene.instance()
 	my_node.set_name(str(my_pid))
 	my_node.set_network_master(my_pid)
-	my_node.get_node("PlayerAvatar2").is_controlled = true
+	my_node.get_node("PlayerAvatar").is_controlled = true
 	get_node("/root/Game/").add_child(my_node)
-	my_node.global_position = Vector2()
-	if my_pid == 1:
-		my_node.global_position = Vector2(32, 32)
 
 
 func _load_other_players():
@@ -86,9 +87,6 @@ func _load_other_players():
 		player_node.set_name(str(pid))
 		player_node.set_network_master(pid)
 		get_node("/root/Game").add_child(player_node)
-		player_node.global_position = Vector2()
-		if pid == 1:
-			player_node.global_position = Vector2(32, 32)
 
 
 func _ready():
