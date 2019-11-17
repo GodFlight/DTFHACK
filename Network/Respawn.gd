@@ -14,10 +14,11 @@ func init():
 func player(pid):
 	var player_node = get_node("/root/Game/" + str(pid))
 	var avatar = player_node.get_node("PlayerAvatar")
+	print()
 	var pos = spawn_points[current_point]
 	avatar.sync_pos(pos)
 	avatar.rpc("sync_pos", pos)
-	avatar.rpc("respawn", Lobby.player_info[pid].type)
+	avatar.rpc("change_sprite", Lobby.player_info[pid].type)
 	current_point += 1
 	if current_point == len(spawn_points) + 1:
 		current_point = 1

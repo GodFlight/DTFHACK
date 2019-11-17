@@ -13,7 +13,7 @@ func _ready():
 #	$AreaTakeDamage.connect("area_entered", self, "damage")
 	pass
 
-remotesync func respawn(num):
+remotesync func change_sprite(num):
 	velocity = Vector2.ZERO
 	rotation_degrees = 0
 	match num:
@@ -42,6 +42,10 @@ func _process(delta):
 #		return
 #	print(velocity)
 	if velocity == Vector2.ZERO and input != Vector2.ZERO:
+		var body_angle = rotation_degrees + 90
+		var input_angle = rad2deg(input.angle())
+		if round(body_angle) == round(input_angle): # Jump down fix
+			return
 		rpc("change_velocity", input)
 		rpc("sync_pos", position)
 		rpc("_change_body_direction")
