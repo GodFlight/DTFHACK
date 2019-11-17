@@ -1,14 +1,25 @@
 extends Area2D
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
+export(int) var slow_percent = 50
 
-# Called when the node enters the scene tree for the first time.
+var bodies_on_slow_area : int = 0
+
 func _ready() -> void:
-	pass # Replace with function body.
+	$Sprite.frame = 0
+
 
 func _on_SlowArea_body_entered(body: PhysicsBody2D) -> void:
+	bodies_on_slow_area += 1
+	if ($Sprite.frame == 0):
+		$AnimationPlayer.play("default")
 	if body.has_method("slow"):
-		body.slow(50)
-#		$AnimationPlayer.play("default")
+		body.slow(slow_percent)
+
+
+func _on_SlowArea_body_exited(body: PhysicsBody2D) -> void:
+	bodies_on_slow_area -= 1
+	if (bodies_on_slow_area == 0):
+		$AnimationPlayer.stop()
+		$Sprite.frame = 0
+	if body.has_method("slow"):
+		body.slow(0)
