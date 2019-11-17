@@ -6,18 +6,17 @@ const base_speed = 400
 var speed = 0
 var one_tap = true
 var is_controlled = false
+var is_dead = false
 
 func _ready():
 	$AreaAttack.connect("area_entered", self, "area_collision")
 	$AreaAttack.connect("body_entered", self, "collision")
 	$AnimationPlayer.play("Idle")
 	speed = base_speed
-	slow(100)
-	slow(0)
-#	$AreaTakeDamage.connect("area_entered", self, "damage")
 	pass
 
 remotesync func change_sprite(num):
+	is_dead = false
 	$AnimationPlayer.play("Idle")
 	velocity = Vector2.ZERO
 	rotation_degrees = 0
@@ -43,7 +42,6 @@ func _process(delta):
 		input.x = 1
 	elif Input.is_action_just_pressed("player_left"):
 		input.x = -1
-#	print(position)
 	if velocity == Vector2.ZERO and input != Vector2.ZERO:
 		var body_angle = rotation_degrees + 90
 		var input_angle = rad2deg(input.angle())
@@ -55,7 +53,8 @@ func _process(delta):
 
 func _physics_process(delta : float):
 	var move = move_and_slide(velocity * speed)
-	if move == Vector2.ZERO:
+	if velocity != Vector2.ZERO and move == Vector2.ZERO:
+		var col = get_slide_collision(0)
 		if tmp_velocity != Vector2.ZERO:
 			_turn_around()
 		change_velocity(Vector2.ZERO)
@@ -91,10 +90,7 @@ func _turn_around():
 
 func area_collision(area: Area2D):
 	var mb_player = area.get_node("..")
-	if mb_player != self and mb_player.has_method("damage"):
-		print("Player[", $"..".name, "] booped Player[", mb_player.get_node("..").name, "]")
-#		print("Id[", get_tree().get_network_unique_id(),"]	Player[", $"..".name, "] booped Player[", mb_player.get_node("..").name, "]")
-#		mb_player.rpc("change_velocity", -mb_player.velocity)
+	if mb_player != self and mb_player.has_method("damage") and not mb_player.is_dead:
 		rpc("change_velocity", -velocity)
 		if velocity != Vector2.ZERO:
 			rpc("_change_body_direction")
@@ -102,33 +98,16 @@ func area_collision(area: Area2D):
 
 
 func collision(body: PhysicsBody2D):
-	if body and body != self and body.has_method("damage"):
-		print("Player[", $"..".name, "] attacked Player[", body.get_node("..").name, "]")
-#		var id = get_tree().get_network_unique_id()
-#		print("Id[Player[", id, "] attacked Player[", body.get_node("..").name, "]")
+	if body and body != self and body.has_method("damage") and not body.is_dead:
 		body.damage(999)
 	pass
 
 
-#func attack(body):
-#	print("pepega 1")
-#	if body != self and body.get_node("..").has_method("damage"):
-#		if body.name == "AreaAttack":
-##			print(velocity)
-#			velocity = -velocity
-#			print("Check")
-##			print(velocity)
-#			return
-#		body.get_node("..").damage(1)
-#
-remotesync func damage(amount : int):
-	print($"..".name)
-	Respawn.call_rpc(int($"..".name))
-#	Respawn.player(int($"..".name))
-#	print("PEPEGUS MAXIMUS")
-#	queue_free()
-#	print("Taken ", amount, " damage!")
+func damage(amount: int):
+	if get_tree().get_network_unique_id() == 1:
+		is_dead = true
+		Lobby.add_score(int($"..".name))
+		Respawn.call_rpc(int($"..".name))
 
 func slow(percent : int):
 	speed = base_speed - (base_speed / 100 * percent)
-	print("Slowing down by ", percent, " %")

@@ -14,24 +14,33 @@ var player_info = {}
 var player_name
 var player_color = Color.black
 var player_scene = preload("res://Player/Character.tscn")
-var current_map = preload("res://Maps/Map3.tscn")
+var current_map = preload("res://Maps/Map1.tscn")
 
 signal player_sent_info
 signal session_ended
+signal player_info_updated
+
+var a = Array()
+
+
+func __debug_launch():
+	create_server_press("1488", "FUCKMEINTHEASS")
+	start_game()
 
 func create_server_press(port_str, pl_name):
 	print("Server creation!")
 	print("Player: ", pl_name, "	Port: ", port_str)
-	
+	a.shuffle()	
 	player_name = pl_name
-	player_color = player_colors[0]
+	player_color = player_colors[a[0]]
 	player_info[1] = {
 		"name": player_name,
 		"color": player_color,
-		"type": 0
+		"type": a[0],
+		"score": 0
 	}
 	var peer = NetworkedMultiplayerENet.new()
-	var err = peer.create_server(SERVER_PORT, MAX_PLAYERS)
+	var err = peer.create_server(int(port_str), MAX_PLAYERS)
 	if (err != OK):
 		emit_signal("session_ended")
 		end_session()
@@ -45,7 +54,7 @@ func connect_to_server_press(address_str, port_str, pl_name):
 	
 	player_name = pl_name
 	var peer = NetworkedMultiplayerENet.new()
-	var err = peer.create_client(address_str, SERVER_PORT)
+	var err = peer.create_client(address_str, int(port_str))
 	if (err != OK):
 		emit_signal("session_ended")
 		end_session()
@@ -108,6 +117,12 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	randomize()
+	a.push_back(0)
+	a.push_back(1)
+	a.push_back(2)
+	a.push_back(3)
+	print(a[0])
 
 
 # Called on server and every client
@@ -145,18 +160,27 @@ remote func request_color(peer_id):
 	if my_id == 1:
 		player_info
 
+func add_score(pid):
+	rpc("_add_score", pid)
+
+remotesync func _add_score(pid):
+	player_info[pid].score += 1
+	emit_signal("player_info_updated")
 
 remote func register_player(pl_name):
 	var id = get_tree().get_rpc_sender_id()
 	player_info[id] = {
 		"name": pl_name,
 		"color": Color.black,
-		"type": 0
+		"type": 0,
+		"score": 0
 	}
 	var my_id = get_tree().get_network_unique_id()
-	if my_id == 1:
-		player_info[id].color = player_colors[len(player_info) - 1]
-		player_info[id].type = len(player_info) - 1
+	if my_id == 1: #
+		var pl_id = len(player_info) - 1
+		player_info[id].color = player_colors[a[pl_id]]
+		player_info[id].type = a[pl_id]
+#		player_info[id].type = len(player_info) - 1
 		rpc("sync_info", id, player_info[id])
 	emit_signal("player_sent_info")
 
