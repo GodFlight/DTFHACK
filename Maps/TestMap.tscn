@@ -6,7 +6,7 @@
 [ext_resource path="res://Enviroment/Trap.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Enviroment/Spikes.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Enviroment/SlowArea.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Maps/LaserButton.gd" type="Script" id=7]
+[ext_resource path="res://Enviroment/LaserButton.gd" type="Script" id=7]
 [ext_resource path="res://Assets/laser_plate.png" type="Texture" id=8]
 [ext_resource path="res://Assets/laser_beam.png" type="Texture" id=9]
 [ext_resource path="res://Enviroment/SpawnPoint.tscn" type="PackedScene" id=10]
@@ -72,6 +72,9 @@ tracks/0/keys = {
 extents = Vector2( 1, 1 )
 
 [node name="Preset" instance=ExtResource( 1 )]
+
+[node name="Map" parent="." index="0"]
+editor/display_folded = false
 
 [node name="Graphics" parent="Map" index="0"]
 editor/display_folded = false

@@ -2,7 +2,7 @@ extends Area2D
 
 export(int) var laser_cooldown = 15
 export(float) var laser_duration = 0
-
+export(Color) var laser_color = "#ff0000"
 var is_active : bool = true
 
 func _ready() -> void:
@@ -20,7 +20,7 @@ func create_lasers():
 			laser = Line2D.new()
 			add_child(laser)
 			laser.add_point(node.position)
-			laser.default_color = "ff0000"
+			laser.default_color = laser_color
 			laser.width = 4
 			laser.visible = false
 			add_laser = false
