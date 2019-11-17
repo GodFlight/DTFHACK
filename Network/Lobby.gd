@@ -75,6 +75,7 @@ remotesync func _start():
 		Respawn.init()
 		for pid in player_info:
 			Respawn.player(pid)
+		Match.start_game()
 
 
 func _load_level():

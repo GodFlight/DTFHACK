@@ -23,6 +23,7 @@ config/icon="res://Assets/icon.png"
 
 Lobby="*res://Network/Lobby.gd"
 Respawn="*res://Network/Respawn.gd"
+Match="*res://Network/Match.gd"
 
 [display]
 

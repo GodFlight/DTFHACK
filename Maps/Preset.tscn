@@ -142,7 +142,6 @@ margin_left = 128.0
 margin_right = 252.0
 
 [node name="Time Left" type="VBoxContainer" parent="Player UI/HBoxContainer"]
-editor/display_folded = true
 margin_left = 256.0
 margin_right = 380.0
 margin_bottom = 360.0
@@ -159,7 +158,7 @@ margin_top = 20.0
 margin_right = 124.0
 margin_bottom = 36.0
 custom_fonts/font = ExtResource( 4 )
-text = "5:00"
+text = "2:30"
 align = 1
 
 [node name="VBoxContainer3" parent="Player UI/HBoxContainer" instance=ExtResource( 3 )]
