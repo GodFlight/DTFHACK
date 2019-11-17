@@ -86,7 +86,10 @@ tracks/0/keys = {
 "values": [ 2, 3, 8, 4, 5, 8, 6, 7, 8 ]
 }
 
-[node name="Preset" instance=ExtResource( 1 )]
+[node name="Preset" index="0" instance=ExtResource( 1 )]
+
+[node name="Map" parent="." index="0"]
+editor/display_folded = false
 
 [node name="Graphics" parent="Map" index="0"]
 editor/display_folded = false
@@ -188,7 +191,7 @@ playback_speed = 4.0
 anims/default = SubResource( 8 )
 
 [node name="Spawn Points" parent="Map" index="2"]
-editor/display_folded = true
+visible = false
 
 [node name="Spawn Point" parent="Map/Spawn Points" index="0" instance=ExtResource( 4 )]
 position = Vector2( 328, 120 )
