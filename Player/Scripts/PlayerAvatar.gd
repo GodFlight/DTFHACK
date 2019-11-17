@@ -11,7 +11,6 @@ func _ready():
 	$AreaAttack.connect("area_entered", self, "area_collision")
 	$AreaAttack.connect("body_entered", self, "collision")
 	$AnimationPlayer.play("Idle")
-#	$AreaTakeDamage.connect("area_entered", self, "damage")
 	pass
 
 remotesync func change_sprite(num):
@@ -43,9 +42,6 @@ func _process(delta):
 		input.x = -1
 	if input.x != 0 && input.y != 0:
 		print(input)
-#	if _possible_to_move(delta, input):
-#		return
-#	print(velocity)
 	if velocity == Vector2.ZERO and input != Vector2.ZERO:
 		var body_angle = rotation_degrees + 90
 		var input_angle = rad2deg(input.angle())
@@ -94,10 +90,7 @@ func _turn_around():
 
 func area_collision(area: Area2D):
 	var mb_player = area.get_node("..")
-	if not is_dead and mb_player != self and mb_player.has_method("damage"):
-		print("Player[", $"..".name, "] booped Player[", mb_player.get_node("..").name, "]")
-#		print("Id[", get_tree().get_network_unique_id(),"]	Player[", $"..".name, "] booped Player[", mb_player.get_node("..").name, "]")
-#		mb_player.rpc("change_velocity", -mb_player.velocity)
+	if mb_player != self and mb_player.has_method("damage") and not mb_player.is_dead:
 		rpc("change_velocity", -velocity)
 		if velocity != Vector2.ZERO:
 			rpc("_change_body_direction")
@@ -105,34 +98,16 @@ func area_collision(area: Area2D):
 
 
 func collision(body: PhysicsBody2D):
-	if not is_dead and body and body != self and body.has_method("damage"):
-		print("Player[", $"..".name, "] attacked Player[", body.get_node("..").name, "]")
-#		var id = get_tree().get_network_unique_id()
-#		print("Id[Player[", id, "] attacked Player[", body.get_node("..").name, "]")
+	if body and body != self and body.has_method("damage") and not body.is_dead:
 		body.damage(999)
 	pass
 
 
-#func attack(body):
-#	print("pepega 1")
-#	if body != self and body.get_node("..").has_method("damage"):
-#		if body.name == "AreaAttack":
-##			print(velocity)
-#			velocity = -velocity
-#			print("Check")
-##			print(velocity)
-#			return
-#		body.get_node("..").damage(1)
-#
-func damage(amount : int):
-#	print($"..".name)
+func damage(amount: int):
 	if get_tree().get_network_unique_id() == 1:
 		is_dead = true
+		Lobby.add_score(int($"..".name))
 		Respawn.call_rpc(int($"..".name))
-#	Respawn.player(int($"..".name))
-#	print("PEPEGUS MAXIMUS")
-#	queue_free()
-#	print("Taken ", amount, " damage!")
 
 func slow(percent : int):
 	print("Slowing down by ", percent, " %")
