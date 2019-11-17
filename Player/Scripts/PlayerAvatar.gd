@@ -2,7 +2,8 @@ extends KinematicBody2D
 
 onready var velocity = Vector2.ZERO
 onready var tmp_velocity = velocity
-const speed = 400
+const base_speed = 400
+var speed = 0
 var one_tap = true
 var is_controlled = false
 var is_dead = false
@@ -11,6 +12,7 @@ func _ready():
 	$AreaAttack.connect("area_entered", self, "area_collision")
 	$AreaAttack.connect("body_entered", self, "collision")
 	$AnimationPlayer.play("Idle")
+	speed = base_speed
 	pass
 
 remotesync func change_sprite(num):
@@ -40,8 +42,6 @@ func _process(delta):
 		input.x = 1
 	elif Input.is_action_just_pressed("player_left"):
 		input.x = -1
-	if input.x != 0 && input.y != 0:
-		print(input)
 	if velocity == Vector2.ZERO and input != Vector2.ZERO:
 		var body_angle = rotation_degrees + 90
 		var input_angle = rad2deg(input.angle())
@@ -52,11 +52,11 @@ func _process(delta):
 		rpc("_change_body_direction")
 
 func _physics_process(delta : float):
-	var col = move_and_collide(velocity * delta * speed)
-	if col:
+	var move = move_and_slide(velocity * speed)
+	if velocity != Vector2.ZERO and move == Vector2.ZERO:
+		var col = get_slide_collision(0)
 		if tmp_velocity != Vector2.ZERO:
 			_turn_around()
-			
 		change_velocity(Vector2.ZERO)
 
 remotesync func change_velocity(input: Vector2):
@@ -110,4 +110,5 @@ func damage(amount: int):
 		Respawn.call_rpc(int($"..".name))
 
 func slow(percent : int):
+	speed = base_speed - (base_speed / 100 * percent)
 	print("Slowing down by ", percent, " %")
