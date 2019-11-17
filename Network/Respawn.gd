@@ -18,7 +18,6 @@ func call_rpc(pid):
 		player(pid)
 
 remote func player(pid):
-	print("Respawn")
 	var player_node = get_node("/root/Game/" + str(pid))
 	var avatar = player_node.get_node("PlayerAvatar")
 	var pos = spawn_points[current_point]
