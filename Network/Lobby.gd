@@ -81,7 +81,7 @@ remotesync func _start():
 
 
 func _load_level():
-	if get_node("/root/Control") != null:
+	if get_node("/root").has_node("Control"):
 		get_node("/root/Control").queue_free()
 	var node = current_map.instance()
 	get_node("/root/").add_child(node)

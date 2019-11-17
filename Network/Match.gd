@@ -4,7 +4,7 @@ const ROUND_TIME = 150
 #const ROUND_TIME = 12
 var timer
 var tick_timer
-var in_game
+var in_game = false
 
 signal ticked(time_left)
 signal game_ended(win_id)
@@ -29,7 +29,7 @@ remotesync func all_tick(time_left):
 
 
 func _process(delta):
-	if get_tree().get_network_unique_id() == 1 and timer.time_left == 0 and in_game:
+	if in_game and get_tree().get_network_unique_id() == 1 and timer.time_left == 0:
 		if Input.is_key_pressed(KEY_R):
 			pass
 		elif Input.is_key_pressed(KEY_N):
