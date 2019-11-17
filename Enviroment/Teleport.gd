@@ -31,5 +31,5 @@ func _teleport(body : PhysicsBody2D):
 		
 func _player_exited(body : PhysicsBody2D):
 	player_on_teleport = false
-#	get_parent().stop_timer(body.get_parent().name) # можно раскомментить чтобы таймер перезагружался каждый раз при выходе перса из Area2D
+	get_parent().stop_timer(body.get_parent().name) # чтобы таймер перезагружается каждый раз при выходе перса из Area2D
 		
