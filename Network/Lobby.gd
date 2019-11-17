@@ -12,13 +12,13 @@ var player_colors = {
 
 
 var maps_4p = {
-	0: preload("res://Maps/Map1.tscn"),
-	1: preload("res://Maps/Map3.tscn")
+	0: "res://Maps/Map1.tscn",
+	1: "res://Maps/Map3.tscn"
 }
 
 var maps_2p = {
-	0: preload("res://Maps/Map2.tscn"),
-	1: preload("res://Maps/Map4.tscn")
+	0: "res://Maps/Map2.tscn",
+	1: "res://Maps/Map4.tscn"
 }
 
 
@@ -134,7 +134,7 @@ remotesync func _start(map):
 func _load_level():
 	if get_node("/root").has_node("Control"):
 		get_node("/root/Control").queue_free()
-	var node = current_map.instance()
+	var node = load(str(current_map)).instance()
 	get_node("/root/").add_child(node)
 	node.set_name("Game")
 

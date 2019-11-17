@@ -5,6 +5,7 @@ var current_point = 0
 
 func init():
 	randomize()
+	spawn_points = Array()
 	var points = get_node("/root/Game/Map/Spawn Points")
 	for p in points.get_children():
 		spawn_points.append(p.position)

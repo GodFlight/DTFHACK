@@ -254,7 +254,6 @@ hframes = 2
 frame = 1
 
 [node name="Spawn Points" parent="Map" index="2"]
-editor/display_folded = true
 visible = false
 
 [node name="Spawn Point" parent="Map/Spawn Points" index="0" instance=ExtResource( 9 )]

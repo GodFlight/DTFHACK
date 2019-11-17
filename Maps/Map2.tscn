@@ -91,6 +91,9 @@ editor/display_folded = false
 [node name="TileMap" parent="Map/Graphics" index="0"]
 tile_data = PoolIntArray( 327695, 0, 0, 327696, 0, 131073, 327697, 0, 1, 327698, 0, 131073, 327699, 0, 2, 393227, 0, 0, 393228, 0, 1, 393229, 0, 2, 393231, 0, 65538, 393235, 0, 131072, 393236, 0, 1, 393237, 0, 1, 393238, 0, 131073, 393239, 0, 131073, 393240, 0, 131073, 393241, 0, 131073, 393242, 0, 131073, 393243, 0, 2, 458763, 0, 65538, 458765, 0, 131072, 458766, 0, 1, 458767, 0, 0, 458768, 0, 131073, 458769, 0, 2, 458779, 0, 65538, 524299, 0, 65536, 524305, 0, 65536, 524313, 0, 0, 524314, 0, 131073, 524315, 0, 0, 589835, 0, 65536, 589839, 0, 0, 589841, 0, 131072, 589842, 0, 1, 589843, 0, 0, 589844, 0, 1, 589845, 0, 0, 589846, 0, 1, 589847, 0, 2, 589851, 0, 65538, 655371, 0, 65536, 655375, 0, 65536, 655379, 0, 65536, 655381, 0, 65538, 655383, 0, 65536, 655386, 0, 0, 655387, 0, 0, 720907, 0, 65538, 720911, 0, 65536, 720913, 0, 0, 720915, 0, 65538, 720917, 0, 0, 720919, 0, 65536, 720923, 0, 65536, 786443, 0, 0, 786444, 0, 0, 786447, 0, 65538, 786449, 0, 65538, 786451, 0, 65536, 786455, 0, 65538, 786459, 0, 65536, 851979, 0, 65536, 851983, 0, 131072, 851984, 0, 131073, 851985, 0, 0, 851986, 0, 131073, 851987, 0, 0, 851988, 0, 131073, 851989, 0, 2, 851991, 0, 0, 851995, 0, 65538, 917515, 0, 0, 917516, 0, 1, 917517, 0, 0, 917525, 0, 65536, 917531, 0, 65538, 983051, 0, 65536, 983061, 0, 131072, 983062, 0, 131073, 983063, 0, 0, 983064, 0, 1, 983065, 0, 2, 983067, 0, 65538, 1048587, 0, 131072, 1048588, 0, 131073, 1048589, 0, 131073, 1048590, 0, 131073, 1048591, 0, 131073, 1048592, 0, 1, 1048593, 0, 131073, 1048594, 0, 1, 1048595, 0, 2, 1048599, 0, 65536, 1048601, 0, 131072, 1048602, 0, 131073, 1048603, 0, 131074, 1114131, 0, 131072, 1114132, 0, 131073, 1114133, 0, 1, 1114134, 0, 1, 1114135, 0, 131074 )
 
+[node name="Environment" parent="Map" index="1"]
+editor/display_folded = true
+
 [node name="PortalSystem3" type="Node2D" parent="Map/Environment" index="0"]
 editor/display_folded = true
 script = ExtResource( 2 )
@@ -236,6 +239,13 @@ frame = 7
 playback_speed = 4.0
 anims/default = SubResource( 4 )
 
+[node name="Spikes3" parent="Map/Environment" index="5" instance=ExtResource( 4 )]
+position = Vector2( 232, 152 )
+rotation = 3.14159
+
+[node name="Spikes4" parent="Map/Environment" index="6" instance=ExtResource( 4 )]
+position = Vector2( 392, 216 )
+
 [node name="Spawn Points" parent="Map" index="2"]
 visible = false
 
@@ -245,12 +255,5 @@ position = Vector2( 296, 200 )
 [node name="Spawn Point2" parent="Map/Spawn Points" index="1" instance=ExtResource( 5 )]
 position = Vector2( 328, 168 )
 
-[node name="Spikes" parent="." index="2" instance=ExtResource( 4 )]
-position = Vector2( 232, 152 )
-rotation = 3.14159
-
-[node name="Spikes2" parent="." index="3" instance=ExtResource( 4 )]
-position = Vector2( 392, 216 )
-
-[node name="AudioStreamPlayer" parent="." index="5"]
+[node name="AudioStreamPlayer" parent="." index="3"]
 stream = ExtResource( 6 )
