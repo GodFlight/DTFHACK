@@ -45,6 +45,7 @@ tracks/0/keys = {
 }
 
 [node name="Map1" index="0" instance=ExtResource( 1 )]
+editor/display_folded = true
 
 [node name="Graphics" parent="Map" index="0"]
 editor/display_folded = false
