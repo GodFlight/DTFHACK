@@ -1,7 +1,6 @@
 extends Control
 
 enum Screen {NULL, Splash, Main, Connect, Server, Connected, Servered}
-#            0     1       2     3        4       5          6
 
 var Menu = {
 	Screen.NULL: null,
