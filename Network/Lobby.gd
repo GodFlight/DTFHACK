@@ -27,6 +27,7 @@ var player_name
 var player_color = Color.black
 var player_scene = preload("res://Player/Character.tscn")
 var current_map = null
+export var restart_map = false
 
 signal player_sent_info
 signal session_ended
@@ -115,7 +116,8 @@ func end_session():
 func start_game():
 	var pid = get_tree().get_network_unique_id()
 	if pid == 1:
-		current_map = get_next_map()
+		if !restart_map:
+			current_map = get_next_map()
 		rpc("_start", current_map)
 
 remotesync func _start(map):

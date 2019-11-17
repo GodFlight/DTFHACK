@@ -1,10 +1,11 @@
 extends Node
 
 const ROUND_TIME = 150
-#const ROUND_TIME = 12
+#const ROUND_TIME = 5
 var timer
 var tick_timer
 var in_game = false
+var	restart_game = false
 
 signal ticked(time_left)
 signal game_ended(win_id)
@@ -31,9 +32,17 @@ remotesync func all_tick(time_left):
 func _process(delta):
 	if in_game and get_tree().get_network_unique_id() == 1 and timer.time_left == 0:
 		if Input.is_key_pressed(KEY_R):
+			restart_game = true
+			Lobby.restart_map = restart_game
+			clean_map()
+			rpc("clean_map")
+			Lobby.reset_score()
+			Lobby.start_game()
 			pass
 		elif Input.is_key_pressed(KEY_N):
 			in_game = false
+			restart_game = false
+			Lobby.restart_map = restart_game
 			clean_map()
 			rpc("clean_map")
 			Lobby.reset_score()
@@ -41,6 +50,8 @@ func _process(delta):
 			pass
 		elif Input.is_key_pressed(KEY_B):
 			in_game = false
+			restart_game = false
+			Lobby.restart_map = restart_game
 			Lobby.end_session()
 			get_node("/root/Game").queue_free()
 			var node = preload("res://Menu System/Menu_Scene.tscn").instance()
