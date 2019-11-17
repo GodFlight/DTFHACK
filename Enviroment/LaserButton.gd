@@ -39,7 +39,6 @@ func create_laser_line(laser, pos : Vector2, laser_nbr : int):
 
 
 func create_laser_collider(laser, laser_area : Area2D):
-	laser.add_child(laser_area)
 	laser_area.connect("body_entered", self, "deal_damage")
 	laser_area.position.x = (laser.get_point_position(0).x + laser.get_point_position(1).x) / 2
 	laser_area.position.y = (laser.get_point_position(0).y + laser.get_point_position(1).y) / 2
