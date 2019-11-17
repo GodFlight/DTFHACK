@@ -20,6 +20,10 @@ signal player_sent_info
 signal session_ended
 signal player_info_updated
 
+func __debug_launch():
+	create_server_press("1488", "FUCKMEINTHEASS")
+	start_game()
+
 func create_server_press(port_str, pl_name):
 	print("Server creation!")
 	print("Player: ", pl_name, "	Port: ", port_str)
