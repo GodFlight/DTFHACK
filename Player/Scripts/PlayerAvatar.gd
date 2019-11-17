@@ -14,6 +14,7 @@ func _ready():
 	pass
 
 remotesync func respawn(num):
+	velocity = Vector2.ZERO
 	rotation_degrees = 0
 	match num:
 		1:
