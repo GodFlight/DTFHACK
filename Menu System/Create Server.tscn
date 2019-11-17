@@ -26,12 +26,12 @@ custom_constants/separation = 10
 
 [node name="Control2" type="Control" parent="HBoxContainer/VBoxContainer"]
 margin_right = 210.0
-margin_bottom = 41.0
+margin_bottom = 42.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
-margin_top = 53.0
+margin_top = 55.0
 margin_right = 210.0
 margin_bottom = 69.0
 size_flags_vertical = 6
@@ -40,31 +40,32 @@ text = "create server"
 align = 1
 
 [node name="Control3" type="Control" parent="HBoxContainer/VBoxContainer"]
-margin_top = 91.0
+margin_top = 93.0
 margin_right = 210.0
-margin_bottom = 91.0
+margin_bottom = 93.0
 size_flags_vertical = 6
 
 [node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer"]
-margin_top = 113.0
+margin_top = 117.0
 margin_right = 210.0
-margin_bottom = 129.0
+margin_bottom = 131.0
 size_flags_vertical = 6
 custom_fonts/font = ExtResource( 2 )
 text = "player name:"
 
 [node name="Player Name" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
-margin_top = 141.0
+margin_top = 145.0
 margin_right = 210.0
-margin_bottom = 167.0
+margin_bottom = 169.0
 size_flags_vertical = 6
 custom_fonts/font = ExtResource( 2 )
 text = "player"
+max_length = 8
 
 [node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer"]
-margin_top = 177.0
+margin_top = 179.0
 margin_right = 210.0
-margin_bottom = 197.0
+margin_bottom = 200.0
 grow_vertical = 2
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
@@ -72,16 +73,16 @@ text = "server port:"
 valign = 2
 
 [node name="Server Port" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
-margin_top = 207.0
+margin_top = 210.0
 margin_right = 210.0
-margin_bottom = 233.0
+margin_bottom = 234.0
 grow_vertical = 2
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
 text = "1488"
 
 [node name="Create" type="Button" parent="HBoxContainer/VBoxContainer"]
-margin_top = 243.0
+margin_top = 244.0
 margin_right = 210.0
 margin_bottom = 265.0
 grow_vertical = 2
@@ -97,12 +98,12 @@ margin_bottom = 275.0
 [node name="Back" type="Button" parent="HBoxContainer/VBoxContainer"]
 margin_top = 285.0
 margin_right = 210.0
-margin_bottom = 307.0
+margin_bottom = 305.0
 custom_fonts/font = ExtResource( 2 )
 text = "back"
 
 [node name="Control" type="Control" parent="HBoxContainer/VBoxContainer"]
-margin_top = 317.0
+margin_top = 315.0
 margin_right = 210.0
 margin_bottom = 360.0
 size_flags_vertical = 3

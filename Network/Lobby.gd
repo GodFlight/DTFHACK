@@ -14,7 +14,7 @@ var player_info = {}
 var player_name
 var player_color = Color.black
 var player_scene = preload("res://Player/Character.tscn")
-var current_map = preload("res://Maps/Map1.tscn")
+var current_map = preload("res://Maps/Map3.tscn")
 
 signal player_sent_info
 signal session_ended

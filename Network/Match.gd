@@ -1,10 +1,12 @@
 extends Node
 
-const ROUND_TIME = 150
+#const ROUND_TIME = 150
+const ROUND_TIME = 12
 var timer
 var tick_timer
 
 signal ticked
+signal game_ended
 
 func _ready():
 	timer = Timer.new()
@@ -18,7 +20,6 @@ func _ready():
 
 
 func tick():
-	print("boop")
 	rpc("all_tick")
 
 
@@ -27,7 +28,12 @@ remotesync func all_tick():
 
 
 func end_game():
+	rpc("all_end")
 	pass
+
+
+remotesync func all_end():
+	emit_signal("game_ended")
 
 
 func start_game():

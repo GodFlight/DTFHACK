@@ -6,6 +6,7 @@ var time_label
 func _ready():
 	Lobby.connect("player_info_updated", self, "_refresh_score")
 	Match.connect("ticked", self, "_refresh_time")
+	Match.connect("game_ended", self, "_end_game")
 	var ct = 0
 	for pid in Lobby.player_info:
 		var node = $"HBoxContainer".get_child(ct)
@@ -27,5 +28,13 @@ func _refresh_score():
 		score_labels[pid].node.text = "%06d" % Lobby.player_info[pid].score
 
 func _refresh_time():
-	print("boooop")
 	time_label.text = str(int(Match.timer.time_left) / 60) + ":" + "%02d" % (int(Match.timer.time_left) % 60)
+
+func _end_game():
+	get_tree().paused = true
+	if get_tree().get_network_unique_id() == 1:
+		$"HBoxContainer".hide()
+		$"Server End Screen".show()
+	else:
+		$"HBoxContainer".hide()
+		$"Player End Screen".show()
