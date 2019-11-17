@@ -32,7 +32,7 @@ margin_bottom = 20.0
 grow_vertical = 2
 size_flags_vertical = 6
 custom_fonts/font = ExtResource( 2 )
-text = "poheru"
+text = "bloopers"
 align = 1
 valign = 1
 

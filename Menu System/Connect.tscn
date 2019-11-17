@@ -59,7 +59,7 @@ margin_right = 234.0
 margin_bottom = 126.0
 size_flags_vertical = 6
 custom_fonts/font = ExtResource( 2 )
-text = "player"
+text = "blooper"
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
 margin_top = 136.0
@@ -78,7 +78,7 @@ margin_bottom = 186.0
 grow_vertical = 2
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
-text = "127.0.0.1"
+text = "localhost"
 
 [node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer"]
 margin_top = 196.0
@@ -97,7 +97,7 @@ margin_bottom = 246.0
 grow_vertical = 2
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
-text = "1488"
+text = "2121"
 
 [node name="Connect" type="Button" parent="HBoxContainer/VBoxContainer"]
 margin_top = 256.0

@@ -31,12 +31,13 @@ size_flags_vertical = 6
 size_flags_stretch_ratio = 0.2
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
-margin_top = 25.0
+margin_top = 26.0
 margin_right = 210.0
 margin_bottom = 41.0
 size_flags_vertical = 6
 custom_fonts/font = ExtResource( 2 )
-text = "poheru"
+text = "bloopers"
+align = 1
 
 [node name="Control4" type="Control" parent="HBoxContainer/VBoxContainer"]
 margin_top = 60.0
@@ -46,7 +47,7 @@ size_flags_vertical = 6
 size_flags_stretch_ratio = 0.05
 
 [node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer"]
-margin_top = 78.0
+margin_top = 79.0
 margin_right = 210.0
 margin_bottom = 94.0
 size_flags_vertical = 6
@@ -66,7 +67,7 @@ margin_bottom = 180.0
 size_flags_vertical = 6
 
 [node name="Start Match" type="Button" parent="HBoxContainer/VBoxContainer"]
-margin_top = 216.0
+margin_top = 217.0
 margin_right = 210.0
 margin_bottom = 238.0
 size_flags_vertical = 6
@@ -82,7 +83,7 @@ size_flags_vertical = 3
 [node name="Back" type="Button" parent="HBoxContainer/VBoxContainer"]
 margin_top = 300.0
 margin_right = 210.0
-margin_bottom = 322.0
+margin_bottom = 321.0
 size_flags_vertical = 2
 custom_fonts/font = ExtResource( 2 )
 text = "back to menu"
