@@ -10,17 +10,66 @@ var player_colors = {
 	3: Color("#d32734") # Red
 }
 
+
+var maps_4p = {
+	0: preload("res://Maps/Map1.tscn"),
+	1: preload("res://Maps/Map3.tscn")
+}
+
+var maps_2p = {
+	0: preload("res://Maps/Map2.tscn"),
+	1: preload("res://Maps/Map4.tscn")
+}
+
+
 var player_info = {}
 var player_name
 var player_color = Color.black
 var player_scene = preload("res://Player/Character.tscn")
-var current_map = preload("res://Maps/Map1.tscn")
+var current_map = null
 
 signal player_sent_info
 signal session_ended
 signal player_info_updated
 
 var a = Array()
+
+
+func get_maps_slice(map_dict, map):
+	var slice = {}
+	var i = 0
+	for map_element in map_dict:
+		if map_dict[map_element] != map:
+			slice[i] = map_dict[map_element]
+		i += 1
+	return slice
+	
+func get_maps_dict(pl_count):
+	if (pl_count >= 3 and pl_count <= 4):
+		return maps_4p
+	elif (pl_count >= 1 and pl_count <= 2):
+		return maps_2p
+	else:
+		return null
+
+func get_next_map():
+	var next_map = null
+	randomize()
+	var pl_count = len(player_info)
+	var map_dict = get_maps_dict(pl_count)
+	if map_dict == null:
+		print("HOUSTON, WE HAVE A PROBLEM")
+		return null
+	if (current_map == null):
+		print("THERE WAS NOT ANY MAP, SO... YOU KNOW")
+		return map_dict[randi() % len(map_dict)]
+	else:
+		var slice = get_maps_slice(map_dict, current_map)
+		if (len(slice) == 0):
+			print("THERE IS NO OTHER MAP!")
+			return current_map
+		return map_dict[randi() % len(map_dict)]
+	print("I DONT EVEN KNOW WHAT HAPPENED")
 
 
 func __debug_launch():
@@ -71,9 +120,11 @@ func end_session():
 func start_game():
 	var pid = get_tree().get_network_unique_id()
 	if pid == 1:
-		rpc("_start")
+		current_map = get_next_map()
+		rpc("_start", current_map)
 
-remotesync func _start():
+remotesync func _start(map):
+	current_map = map
 	_load_level()
 	_load_my_player()
 	_load_other_players()
