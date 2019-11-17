@@ -23,7 +23,6 @@ func _on_Trap_body_entered(body: PhysicsBody2D) -> void:
 		yield(get_tree().create_timer(time_before_hit), "timeout")
 		is_active = true
 	else:
-		print("DEALING!")
 		deal_damage(body)
 	
 	
