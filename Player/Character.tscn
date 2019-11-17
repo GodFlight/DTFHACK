@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Player/Scripts/PlayerAvatar.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Characters/yellow.png" type="Texture" id=2]
+[ext_resource path="res://Sounds/Effects/Death.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Sounds/Effects/Jump.ogg" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.6, 4.72106 )
@@ -24,11 +26,34 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 9, 10, 11, 12 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AudioStreamPlayer:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "Fly"
-length = 0.1
-loop = true
+length = 0.25
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -40,6 +65,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 8 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AudioStreamPlayer:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -110,7 +159,7 @@ position = Vector2( 0, -0.4 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 hframes = 13
-frame = 7
+frame = 8
 region_enabled = true
 region_rect = Rect2( 0, 0, 104, 8 )
 
@@ -126,5 +175,9 @@ anims/Fly = SubResource( 4 )
 anims/Idle = SubResource( 5 )
 anims/Jump = SubResource( 6 )
 anims/Spawn = SubResource( 7 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="PlayerAvatar"]
+stream = ExtResource( 4 )
+volume_db = -20.0
 
 [node name="Node2D" type="Node2D" parent="."]
