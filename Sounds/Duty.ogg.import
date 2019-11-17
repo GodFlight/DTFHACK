@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Duty.ogg-4e6c7ec035a95123944faa309cefab97.oggstr"
+
+[deps]
+
+source_file="res://Sounds/Duty.ogg"
+dest_files=[ "res://.import/Duty.ogg-4e6c7ec035a95123944faa309cefab97.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
