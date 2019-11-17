@@ -17,7 +17,7 @@ func player(pid):
 	var pos = spawn_points[current_point]
 	avatar.sync_pos(pos)
 	avatar.rpc("sync_pos", pos)
-	avatar.rpc("set_sprite", Lobby.player_info[pid].type)
+	avatar.rpc("respawn", Lobby.player_info[pid].type)
 	current_point += 1
 	if current_point == len(spawn_points):
 		current_point = 0

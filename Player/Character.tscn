@@ -1,16 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player/Scripts/PlayerAvatar.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Characters/yellow.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7.6, 7 )
+extents = Vector2( 7.6, 4.72106 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 4, 7.5 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 6.66318, 8.52023 )
+extents = Vector2( 1.04765, 5.29291 )
 
 [sub_resource type="Animation" id=5]
 resource_name = "Fly"
@@ -52,13 +49,14 @@ __meta__ = {
 }
 
 [node name="PlayerAvatar" type="KinematicBody2D" parent="."]
+collision_layer = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAvatar"]
-position = Vector2( 0, 0.72 )
+position = Vector2( 0, 2.96 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="PlayerAvatar"]
@@ -73,16 +71,8 @@ region_rect = Rect2( 0, 0, 104, 8 )
 [node name="AreaAttack" type="Area2D" parent="PlayerAvatar"]
 
 [node name="Attack" type="CollisionShape2D" parent="PlayerAvatar/AreaAttack"]
-position = Vector2( 0, -0.4 )
+position = Vector2( 0, -2.26 )
 shape = SubResource( 2 )
-
-[node name="AreaTakeDamage" type="Area2D" parent="PlayerAvatar"]
-editor/display_folded = true
-visible = false
-
-[node name="TakeDamage" type="CollisionShape2D" parent="PlayerAvatar/AreaTakeDamage"]
-position = Vector2( 0.573713, 0.195902 )
-shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerAvatar"]
 anims/Fly = SubResource( 5 )
