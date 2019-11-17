@@ -193,4 +193,5 @@ visible = false
 visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
 autoplay = true
