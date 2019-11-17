@@ -4,7 +4,7 @@
 [ext_resource path="res://Assets/laser_plate.png" type="Texture" id=2]
 [ext_resource path="res://Assets/laser_beam.png" type="Texture" id=3]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=5]
 resource_name = "default"
 length = 3.1
 loop = true
@@ -21,7 +21,7 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4 ]
 }
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 1, 1 )
 
 [node name="LaserButton" type="Area2D"]
@@ -38,17 +38,16 @@ frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 4.0
-anims/default = SubResource( 1 )
+anims/default = SubResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2( 7, 7 )
-shape = SubResource( 2 )
+shape = SubResource( 6 )
 
 [node name="Cooldown" type="Timer" parent="."]
 wait_time = 0.01
 
 [node name="Emitters" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Emitter1" type="Sprite" parent="Emitters"]
 position = Vector2( 0, 32 )
