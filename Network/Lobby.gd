@@ -3,10 +3,18 @@ extends Node
 const SERVER_PORT = 1488
 const MAX_PLAYERS = 4
 
+var player_colors = {
+	0: Color("#e6da29"), # Yellow
+	1: Color("#7b53ad"), # Purple
+	2: Color("#2d93dd"), # Blue
+	3: Color("#d32734") # Red
+}
+
 var player_info = {}
 var player_name
+var player_color = Color.black
 var player_scene = preload("res://Player/Character.tscn")
-var current_map = preload("res://Game.tscn")
+var current_map = preload("res://Maps/Map3.tscn")
 
 signal player_sent_info
 signal session_ended
@@ -20,7 +28,12 @@ func create_server_press(port_str, pl_name):
 	print("Player: ", pl_name, "	Port: ", port_str)
 	
 	player_name = pl_name
-	player_info[1] = player_name
+	player_color = player_colors[0]
+	player_info[1] = {
+		"name": player_name,
+		"color": player_color,
+		"type": 0
+	}
 	var peer = NetworkedMultiplayerENet.new()
 	var err = peer.create_server(SERVER_PORT, MAX_PLAYERS)
 	if (err != OK):
@@ -60,6 +73,10 @@ remotesync func _start():
 	_load_level()
 	_load_my_player()
 	_load_other_players()
+	if get_tree().get_network_unique_id() == 1:
+		Respawn.init()
+		for pid in player_info:
+			Respawn.player(pid)
 
 
 func _load_level():
@@ -74,11 +91,8 @@ func _load_my_player():
 	var my_node = player_scene.instance()
 	my_node.set_name(str(my_pid))
 	my_node.set_network_master(my_pid)
-	my_node.get_node("PlayerAvatar2").is_controlled = true
+	my_node.get_node("PlayerAvatar").is_controlled = true
 	get_node("/root/Game/").add_child(my_node)
-	my_node.global_position = Vector2()
-	if my_pid == 1:
-		my_node.global_position = Vector2(32, 32)
 
 
 func _load_other_players():
@@ -90,9 +104,6 @@ func _load_other_players():
 		player_node.set_name(str(pid))
 		player_node.set_network_master(pid)
 		get_node("/root/Game").add_child(player_node)
-		player_node.global_position = Vector2()
-		if pid == 1:
-			player_node.global_position = Vector2(32, 32)
 
 
 func _ready():
@@ -114,27 +125,47 @@ func _player_disconnected(id):
 	emit_signal("player_sent_info")
 
 
-# Only called on clients
+# Only called on client
 func _connected_ok():
 	pass
 
 
-# Only called on clients
+# Only called on client
 func _server_disconnected():
 	emit_signal("session_ended")
 	end_session()
 	pass
 
 
-# Only called on clients
+# Only called on client
 func _connected_fail():
 	emit_signal("session_ended")
 	end_session()
 	pass
 
 
+remote func request_color(peer_id):
+	var my_id = get_tree().get_network_unique_id()
+	if my_id == 1:
+		player_info
+
+
 remote func register_player(pl_name):
 	var id = get_tree().get_rpc_sender_id()
-	player_info[id] = pl_name
+	player_info[id] = {
+		"name": pl_name,
+		"color": Color.black,
+		"type": 0
+	}
+	var my_id = get_tree().get_network_unique_id()
+	if my_id == 1:
+		player_info[id].color = player_colors[len(player_info) - 1]
+		player_info[id].type = len(player_info) - 1
+		rpc("sync_info", id, player_info[id])
 	emit_signal("player_sent_info")
 
+remotesync func sync_info(pid, info):
+	player_info[pid] = info
+	if get_tree().get_network_unique_id() == pid:
+		player_color = player_info[pid].color
+	emit_signal("player_sent_info")

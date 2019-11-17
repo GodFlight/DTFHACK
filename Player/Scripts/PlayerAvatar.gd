@@ -1,23 +1,84 @@
 extends KinematicBody2D
 
 onready var velocity = Vector2.ZERO
-const speed = 500
+onready var tmp_velocity = velocity
+const speed = 400
 var one_tap = true
+var is_controlled = false
 
 func _ready():
-	$AreaTakeDamage.connect("area_entered", self, "damage")
-	$AreaAttack.connect("area_entered", self, "attack")
+	$AreaAttack.connect("area_entered", self, "area_collision")
+	$AreaAttack.connect("body_entered", self, "collision")
+	$AnimationPlayer.play("Idle")
+#	$AreaTakeDamage.connect("area_entered", self, "damage")
 	pass
 
-func _process(delta):
-	if one_tap == true:
-		_check_input(delta)
-		_change_body_direction()
-	if (move_and_collide(velocity * speed * delta)):
-		one_tap = true
-		velocity = Vector2.ZERO
+remotesync func change_sprite(num):
+	$AnimationPlayer.play("Idle")
+	velocity = Vector2.ZERO
+	rotation_degrees = 0
+	match num:
+		1:
+			$"Sprite".texture = preload("res://Assets/Characters/purple.png")
+		2:
+			$"Sprite".texture = preload("res://Assets/Characters/blue.png")
+		3:
+			$"Sprite".texture = preload("res://Assets/Characters/red.png")
+		_:
+			$"Sprite".texture = preload("res://Assets/Characters/yellow.png")
 
-func _change_body_direction():
+func _process(delta):
+	if not is_controlled:
+		return
+	var input = Vector2()
+	if Input.is_action_just_pressed("player_down"):
+		input.y = 1
+	elif Input.is_action_just_pressed("player_up"):
+		input.y = -1
+	elif Input.is_action_just_pressed("player_right"):
+		input.x = 1
+	elif Input.is_action_just_pressed("player_left"):
+		input.x = -1
+	if input.x != 0 && input.y != 0:
+		print(input)
+#	if _possible_to_move(delta, input):
+#		return
+#	print(velocity)
+	if velocity == Vector2.ZERO and input != Vector2.ZERO:
+		var body_angle = rotation_degrees + 90
+		var input_angle = rad2deg(input.angle())
+		if round(body_angle) == round(input_angle): # Jump down fix
+			return
+		rpc("change_velocity", input)
+		rpc("sync_pos", position)
+		rpc("_change_body_direction")
+
+func _physics_process(delta : float):
+	var col = move_and_collide(velocity * delta * speed)
+	if col:
+		if tmp_velocity != Vector2.ZERO:
+			_turn_around()
+			
+		change_velocity(Vector2.ZERO)
+
+remotesync func change_velocity(input: Vector2):
+	velocity = input
+	tmp_velocity = velocity
+	if velocity == Vector2.ZERO:
+		$AnimationPlayer.play("Idle")
+	else:
+		$AnimationPlayer.play("Fly")
+
+func _possible_to_move(delta : float, input : Vector2):
+	var check_move = test_move(transform, input * delta)
+	if !check_move:
+		return true
+	return false
+
+remote func sync_pos(pos):
+	position = pos
+
+remotesync func _change_body_direction():
 	if (velocity.y == 1):
 		set_rotation_degrees(180)
 	elif(velocity.y == -1):
@@ -25,49 +86,49 @@ func _change_body_direction():
 	elif (velocity.y == 0):
 		set_rotation_degrees(velocity.x * 90)
 
-func _check_input(delta : float):
-	if Input.is_action_just_pressed("player_right"):
-		velocity.x = 1
-		if ((_check_direction(delta))):
-			one_tap = true
-			return
-	elif Input.is_action_just_pressed("player_left"):
-		velocity.x = -1
-		if ((_check_direction(delta))):
-			one_tap = true
-			return
-	elif Input.is_action_just_pressed("player_up"):
-		velocity.y = -1
-		if ((_check_direction(delta))):
-			one_tap = true
-			return
-	elif Input.is_action_just_pressed("player_down"):
-		velocity.y = 1
-		if ((_check_direction(delta))):
-			one_tap = true
-			return
-	if (velocity != Vector2.ZERO):
-		one_tap = false
+func _turn_around():
+	set_rotation_degrees(rotation_degrees + 180)
 
-func _check_direction(delta : float) -> bool :
-	var check = test_move(transform, (velocity * delta))
-	if (!check):
-		return true
-	return false
 
-func attack(body):
-	if (body != self && body.has_method("damage")):
-		body.damage(body)
-	pass
-	if (body != self):
-		print("check")
+func area_collision(area: Area2D):
+	var mb_player = area.get_node("..")
+	if mb_player != self and mb_player.has_method("damage"):
+		print("Player[", $"..".name, "] booped Player[", mb_player.get_node("..").name, "]")
+#		print("Id[", get_tree().get_network_unique_id(),"]	Player[", $"..".name, "] booped Player[", mb_player.get_node("..").name, "]")
+#		mb_player.rpc("change_velocity", -mb_player.velocity)
+		rpc("change_velocity", -velocity)
+		if velocity != Vector2.ZERO:
+			rpc("_change_body_direction")
 	pass
 
-func damage(amount : int):
-	print("Taken ", amount, " damage!")
 
-func _physics_process(delta):
+func collision(body: PhysicsBody2D):
+	if body and body != self and body.has_method("damage"):
+		print("Player[", $"..".name, "] attacked Player[", body.get_node("..").name, "]")
+#		var id = get_tree().get_network_unique_id()
+#		print("Id[Player[", id, "] attacked Player[", body.get_node("..").name, "]")
+		body.damage(999)
 	pass
+
+
+#func attack(body):
+#	print("pepega 1")
+#	if body != self and body.get_node("..").has_method("damage"):
+#		if body.name == "AreaAttack":
+##			print(velocity)
+#			velocity = -velocity
+#			print("Check")
+##			print(velocity)
+#			return
+#		body.get_node("..").damage(1)
+#
+remotesync func damage(amount : int):
+	print($"..".name)
+	Respawn.call_rpc(int($"..".name))
+#	Respawn.player(int($"..".name))
+#	print("PEPEGUS MAXIMUS")
+#	queue_free()
+#	print("Taken ", amount, " damage!")
 
 func slow(percent : int):
 	print("Slowing down by ", percent, " %")

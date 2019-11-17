@@ -17,11 +17,12 @@ _global_script_class_icons={
 
 config/name="DTF_HACK"
 run/main_scene="res://Menu System/Menu_Scene.tscn"
-config/icon="res://icon.png"
+config/icon="res://Assets/icon.png"
 
 [autoload]
 
 Lobby="*res://Network/Lobby.gd"
+Respawn="*res://Network/Respawn.gd"
 
 [display]
 
@@ -65,4 +66,5 @@ player_down={
 
 [rendering]
 
+environment/default_clear_color=Color( 0.105882, 0.109804, 0.2, 1 )
 environment/default_environment="res://default_env.tres"

@@ -1,7 +1,6 @@
 extends Control
 
 enum Screen {NULL, Splash, Main, Connect, Server, Connected, Servered}
-#            0     1       2     3        4       5          6
 
 var Menu = {
 	Screen.NULL: null,
@@ -16,7 +15,7 @@ var Menu = {
 func _process(delta):
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().quit()
-	if Input.is_action_just_pressed("ui_focus_next"):
+	if Input.is_action_just_pressed("ui_home"):
 		OS.execute(OS.get_executable_path(), OS.get_cmdline_args(), false, [])
 	if Input.is_action_just_pressed("ui_home"):
 		Lobby.__debug_launch()

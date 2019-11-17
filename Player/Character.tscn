@@ -1,51 +1,131 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Player/Scripts/NetworkPlayer.gd" type="Script" id=1]
-[ext_resource path="res://Assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=2]
+[ext_resource path="res://Player/Scripts/PlayerAvatar.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Characters/yellow.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6.3111, 7.7027 )
+extents = Vector2( 7.6, 4.72106 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 6.71915, 0.222379 )
+extents = Vector2( 1.04765, 5.29291 )
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 6.66318, 8.52023 )
+[sub_resource type="Animation" id=3]
+resource_name = "Death"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 12 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Fly"
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 8 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Jump"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Spawn"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 11, 10, 9 ]
+}
 
 [node name="Character" type="Node2D"]
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="PlayerAvatar2" type="KinematicBody2D" parent="."]
+[node name="PlayerAvatar" type="KinematicBody2D" parent="."]
+collision_layer = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAvatar2"]
-visible = false
-position = Vector2( 0.74, 0.12 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAvatar"]
+position = Vector2( 0, 2.96 )
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="PlayerAvatar2"]
+[node name="Sprite" type="Sprite" parent="PlayerAvatar"]
+position = Vector2( 0, -0.4 )
+scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
-hframes = 4
-frame = 1
+hframes = 13
+frame = 7
 region_enabled = true
-region_rect = Rect2( 366.737, 270.31, 65.5204, 17.9246 )
+region_rect = Rect2( 0, 0, 104, 8 )
 
-[node name="AreaAttack" type="Area2D" parent="PlayerAvatar2"]
+[node name="AreaAttack" type="Area2D" parent="PlayerAvatar"]
 
-[node name="Attack" type="CollisionShape2D" parent="PlayerAvatar2/AreaAttack"]
-position = Vector2( 0.503746, -8.71765 )
+[node name="Attack" type="CollisionShape2D" parent="PlayerAvatar/AreaAttack"]
+position = Vector2( 0, -2.26 )
 shape = SubResource( 2 )
 
-[node name="AreaTakeDamage" type="Area2D" parent="PlayerAvatar2"]
-visible = false
-
-[node name="TakeDamage" type="CollisionShape2D" parent="PlayerAvatar2/AreaTakeDamage"]
-position = Vector2( 0.573713, 0.195902 )
-shape = SubResource( 3 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerAvatar"]
+anims/Death = SubResource( 3 )
+anims/Fly = SubResource( 4 )
+anims/Idle = SubResource( 5 )
+anims/Jump = SubResource( 7 )
+anims/Spawn = SubResource( 6 )
 
 [node name="Node2D" type="Node2D" parent="."]

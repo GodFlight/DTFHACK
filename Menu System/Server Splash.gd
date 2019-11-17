@@ -28,5 +28,6 @@ func _refresh_list():
 	for pid in Lobby.player_info:
 		var node = player_label.instance()
 		player_list.add_child(node)
-		node.text = Lobby.player_info[pid]
+		node.text = Lobby.player_info[pid].name
+		node.modulate = Lobby.player_info[pid].color
 	pass
