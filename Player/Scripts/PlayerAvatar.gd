@@ -112,14 +112,19 @@ func _turn_around():
 func area_collision(area: Area2D):
 	var mb_player = area.get_node("..")
 	if mb_player != self and mb_player.has_method("damage") and not mb_player.is_dead:
+		print("Player[", $"..".name,"] booped Player[", mb_player.get_node("../..").name,"]")
+		if velocity != Vector2.ZERO:
+			rpc("sync_pos", position - velocity * 3)
 		rpc("change_velocity", -velocity)
 		if velocity != Vector2.ZERO:
+			rpc("sync_pos", position + velocity * 3)
 			rpc("_change_body_direction")
 	pass
 
 
 func collision(body: PhysicsBody2D):
 	if body and body != self and body.has_method("damage") and not body.is_dead:
+		print("Player[", $"..".name,"] attacked Player[", body.get_node("..").name,"]")
 		body.damage(999, int($"..".name))
 	pass
 
