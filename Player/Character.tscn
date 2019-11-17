@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player/Scripts/PlayerAvatar.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Characters/yellow.png" type="Texture" id=2]
@@ -9,7 +9,23 @@ extents = Vector2( 7.6, 4.72106 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1.04765, 5.29291 )
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
+resource_name = "Death"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 12 ]
+}
+
+[sub_resource type="Animation" id=4]
 resource_name = "Fly"
 length = 0.1
 loop = true
@@ -26,8 +42,7 @@ tracks/0/keys = {
 "values": [ 8 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Idle"
+[sub_resource type="Animation" id=5]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -41,6 +56,38 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Jump"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Spawn"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 11, 10, 9 ]
 }
 
 [node name="Character" type="Node2D"]
@@ -64,7 +111,7 @@ position = Vector2( 0, -0.4 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 hframes = 13
-frame = 2
+frame = 7
 region_enabled = true
 region_rect = Rect2( 0, 0, 104, 8 )
 
@@ -75,7 +122,10 @@ position = Vector2( 0, -2.26 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerAvatar"]
-anims/Fly = SubResource( 5 )
-anims/Idle = SubResource( 4 )
+anims/Death = SubResource( 3 )
+anims/Fly = SubResource( 4 )
+anims/Idle = SubResource( 5 )
+anims/Jump = SubResource( 7 )
+anims/Spawn = SubResource( 6 )
 
 [node name="Node2D" type="Node2D" parent="."]
