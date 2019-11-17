@@ -1,7 +1,6 @@
 extends Node2D
 
 export(float) var teleport_cooldown = 2
-export(float) var delay_before_teleport = 0
 
 var players_list = {}
 

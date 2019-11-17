@@ -6,11 +6,10 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1, 1 )
 
-[sub_resource type="StreamTexture" id=4]
+[sub_resource type="StreamTexture" id=2]
 load_path = "res://.import/teleport.png-12828cfb7897f5538d88d46013cfa1c8.stex"
 
-[sub_resource type="Animation" id=2]
-resource_name = "default"
+[sub_resource type="Animation" id=3]
 length = 6.0
 loop = true
 tracks/0/type = "value"
@@ -26,8 +25,7 @@ tracks/0/keys = {
 "values": [ 2, 3, 8, 4, 5, 8, 6, 7, 8 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "default"
+[sub_resource type="Animation" id=4]
 length = 6.0
 loop = true
 tracks/0/type = "value"
@@ -58,13 +56,13 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Teleport1"]
 scale = Vector2( 2, 2 )
-texture = SubResource( 4 )
+texture = SubResource( 2 )
 hframes = 9
 frame = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Teleport1"]
 playback_speed = 4.0
-anims/default = SubResource( 2 )
+anims/default = SubResource( 3 )
 
 [node name="Teleport2" type="Area2D" parent="."]
 position = Vector2( 16, 0 )
@@ -79,13 +77,13 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Teleport2"]
 scale = Vector2( 2, 2 )
-texture = SubResource( 4 )
+texture = SubResource( 2 )
 hframes = 9
 frame = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Teleport2"]
 playback_speed = 4.0
-anims/default = SubResource( 3 )
+anims/default = SubResource( 4 )
 
 [node name="Delay" type="Timer" parent="."]
 [connection signal="timeout" from="Delay" to="." method="_on_Delay_timeout"]

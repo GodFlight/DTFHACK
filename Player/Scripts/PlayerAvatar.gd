@@ -55,7 +55,8 @@ func _process(delta):
 
 func _physics_process(delta : float):
 	var move = move_and_slide(velocity * speed)
-	if move == Vector2.ZERO:
+	if velocity != Vector2.ZERO and move == Vector2.ZERO:
+		var col = get_slide_collision(0)
 		if tmp_velocity != Vector2.ZERO:
 			_turn_around()
 		change_velocity(Vector2.ZERO)
