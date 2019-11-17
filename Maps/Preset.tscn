@@ -1,9 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/Tilemaps/walls.png" type="Texture" id=1]
 [ext_resource path="res://Score System/Score.gd" type="Script" id=2]
 [ext_resource path="res://Score System/Player Score Bar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Menu System/Base Font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Score System/Player End Screen.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Score System/Server End Screen.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
@@ -123,13 +125,14 @@ current = true
 [node name="Player UI" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 640.0
+margin_bottom = 360.0
 script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="Control" parent="Player UI"]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 640.0
-margin_bottom = 360.0
 
 [node name="VBoxContainer" parent="Player UI/HBoxContainer" instance=ExtResource( 3 )]
 visible = false
@@ -148,19 +151,30 @@ margin_right = 380.0
 margin_bottom = 360.0
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="Player UI/HBoxContainer/Time Left"]
+[node name="Control2" type="Control" parent="Player UI/HBoxContainer/Time Left"]
 margin_right = 124.0
-margin_bottom = 16.0
+margin_bottom = 318.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Player UI/HBoxContainer/Time Left"]
+margin_top = 322.0
+margin_right = 124.0
+margin_bottom = 337.0
 custom_fonts/font = ExtResource( 4 )
 text = "Time left"
 
 [node name="Time" type="Label" parent="Player UI/HBoxContainer/Time Left"]
-margin_top = 20.0
+margin_top = 341.0
 margin_right = 124.0
-margin_bottom = 36.0
+margin_bottom = 356.0
 custom_fonts/font = ExtResource( 4 )
-text = "5:00"
+text = "2:30"
 align = 1
+
+[node name="Control" type="Control" parent="Player UI/HBoxContainer/Time Left"]
+margin_top = 360.0
+margin_right = 124.0
+margin_bottom = 360.0
 
 [node name="VBoxContainer3" parent="Player UI/HBoxContainer" instance=ExtResource( 3 )]
 visible = false
@@ -171,6 +185,12 @@ margin_right = 508.0
 visible = false
 margin_left = 512.0
 margin_right = 640.0
+
+[node name="Player End Screen" parent="Player UI" instance=ExtResource( 5 )]
+visible = false
+
+[node name="Server End Screen" parent="Player UI" instance=ExtResource( 6 )]
+visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 autoplay = true

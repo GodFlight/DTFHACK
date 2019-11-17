@@ -1,0 +1,272 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Maps/Preset.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enviroment/PortalSystem.gd" type="Script" id=2]
+[ext_resource path="res://Enviroment/Teleport.gd" type="Script" id=3]
+[ext_resource path="res://Enviroment/Trap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Enviroment/Spikes.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Enviroment/LaserButton.gd" type="Script" id=6]
+[ext_resource path="res://Assets/laser_plate.png" type="Texture" id=7]
+[ext_resource path="res://Assets/laser_beam.png" type="Texture" id=8]
+[ext_resource path="res://Enviroment/SpawnPoint.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Sounds/Duty.ogg" type="AudioStream" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1, 1 )
+
+[sub_resource type="StreamTexture" id=2]
+load_path = "res://.import/teleport.png-12828cfb7897f5538d88d46013cfa1c8.stex"
+
+[sub_resource type="Animation" id=3]
+length = 6.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1.4, 2.1, 2.8, 3.5, 4.2, 4.9, 5.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 8, 4, 5, 8, 6, 7, 8 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 6.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1.4, 2.1, 2.8, 3.5, 4.2, 4.9, 5.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 8, 4, 5, 8, 6, 7, 8 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "default"
+length = 3.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("ButtonSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1.6, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 1, 1 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "default"
+length = 3.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("ButtonSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1.6, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 1, 1 )
+
+[node name="Map4" instance=ExtResource( 1 )]
+editor/display_folded = true
+
+[node name="Graphics" parent="Map" index="0"]
+editor/display_folded = false
+
+[node name="TileMap" parent="Map/Graphics" index="0"]
+tile_data = PoolIntArray( 262154, 0, 0, 262155, 0, 1, 262156, 0, 1, 262157, 0, 1, 262158, 0, 131073, 262159, 0, 1, 262160, 0, 131073, 262161, 0, 2, 262163, 0, 0, 262164, 0, 131073, 262165, 0, 131073, 262166, 0, 1, 262167, 0, 0, 262168, 0, 0, 262169, 0, 1, 262170, 0, 131073, 262171, 0, 0, 262172, 0, 0, 327690, 0, 65538, 327697, 0, 131072, 327698, 0, 131073, 327699, 0, 131074, 327703, 0, 0, 327704, 0, 0, 327707, 0, 0, 327708, 0, 0, 393226, 0, 65536, 393228, 0, 0, 393229, 0, 1, 393230, 0, 1, 393231, 0, 2, 393237, 0, 0, 393239, 0, 65536, 393244, 0, 65536, 458762, 0, 65538, 458767, 0, 65536, 458775, 0, 65538, 458780, 0, 65538, 524298, 0, 131072, 524299, 0, 2, 524303, 0, 0, 524304, 0, 0, 524305, 0, 131073, 524306, 0, 1, 524307, 0, 2, 524309, 0, 0, 524310, 0, 1, 524311, 0, 0, 524314, 0, 0, 524315, 0, 0, 524316, 0, 0, 589835, 0, 65536, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589843, 0, 65536, 589847, 0, 131072, 589848, 0, 0, 589850, 0, 0, 589851, 0, 0, 589852, 0, 0, 589853, 0, 0, 655371, 0, 65536, 655375, 0, 65536, 655379, 0, 65538, 655386, 0, 0, 655387, 0, 0, 720907, 0, 131072, 720908, 0, 2, 720910, 0, 0, 720911, 0, 0, 720912, 0, 2, 720915, 0, 0, 720916, 0, 0, 720919, 0, 0, 720923, 0, 65538, 786444, 0, 65538, 786448, 0, 0, 786451, 0, 0, 786452, 0, 0, 786455, 0, 131072, 786456, 0, 0, 786457, 0, 0, 786459, 0, 131072, 786460, 0, 2, 851980, 0, 0, 851981, 0, 0, 851988, 0, 65536, 851992, 0, 65536, 851996, 0, 65538, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917519, 0, 0, 917520, 0, 2, 917524, 0, 65536, 917527, 0, 0, 917528, 0, 0, 917529, 0, 0, 917532, 0, 65536, 983051, 0, 0, 983052, 0, 0, 983053, 0, 0, 983056, 0, 0, 983057, 0, 1, 983058, 0, 0, 983060, 0, 131072, 983061, 0, 1, 983062, 0, 1, 983063, 0, 0, 983064, 0, 0, 983068, 0, 131072, 983069, 0, 2, 1048587, 0, 65536, 1048592, 0, 65538, 1048600, 0, 65536, 1048605, 0, 65538, 1114123, 0, 65538, 1114128, 0, 65536, 1114130, 0, 0, 1114136, 0, 131072, 1114137, 0, 131073, 1114138, 0, 1, 1114139, 0, 0, 1114141, 0, 65538, 1179659, 0, 0, 1179660, 0, 0, 1179663, 0, 0, 1179664, 0, 0, 1179668, 0, 0, 1179669, 0, 131073, 1179670, 0, 2, 1179677, 0, 65536, 1245195, 0, 0, 1245196, 0, 0, 1245197, 0, 131073, 1245198, 0, 131073, 1245199, 0, 0, 1245200, 0, 0, 1245201, 0, 131073, 1245202, 0, 1, 1245203, 0, 131073, 1245204, 0, 131074, 1245206, 0, 131072, 1245207, 0, 1, 1245208, 0, 131073, 1245209, 0, 1, 1245210, 0, 1, 1245211, 0, 131073, 1245212, 0, 1, 1245213, 0, 131074 )
+
+[node name="Environment" parent="Map" index="1"]
+editor/display_folded = true
+
+[node name="PortalSystem" type="Node2D" parent="Map/Environment" index="0"]
+editor/display_folded = true
+script = ExtResource( 2 )
+
+[node name="Teleport1" type="Area2D" parent="Map/Environment/PortalSystem" index="0"]
+position = Vector2( 232, 168 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Environment/PortalSystem/Teleport1" index="0"]
+scale = Vector2( 7, 7 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Map/Environment/PortalSystem/Teleport1" index="1"]
+scale = Vector2( 2, 2 )
+texture = SubResource( 2 )
+hframes = 9
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Map/Environment/PortalSystem/Teleport1" index="2"]
+playback_speed = 4.0
+anims/default = SubResource( 3 )
+
+[node name="Teleport2" type="Area2D" parent="Map/Environment/PortalSystem" index="1"]
+position = Vector2( 408, 216 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Environment/PortalSystem/Teleport2" index="0"]
+scale = Vector2( 7, 7 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Map/Environment/PortalSystem/Teleport2" index="1"]
+scale = Vector2( 2, 2 )
+texture = SubResource( 2 )
+hframes = 9
+frame = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Map/Environment/PortalSystem/Teleport2" index="2"]
+playback_speed = 4.0
+anims/default = SubResource( 4 )
+
+[node name="Trap" parent="Map/Environment" index="1" instance=ExtResource( 4 )]
+position = Vector2( 264, 216 )
+
+[node name="Trap2" parent="Map/Environment" index="2" instance=ExtResource( 4 )]
+position = Vector2( 376, 168 )
+
+[node name="Spikes" parent="Map/Environment" index="3" instance=ExtResource( 5 )]
+position = Vector2( 344, 280 )
+rotation = -1.5708
+
+[node name="Spikes2" parent="Map/Environment" index="4" instance=ExtResource( 5 )]
+position = Vector2( 296, 120 )
+rotation = -1.5708
+
+[node name="Spikes3" parent="Map/Environment" index="5" instance=ExtResource( 5 )]
+position = Vector2( 296, 104 )
+rotation = -4.71239
+
+[node name="Spikes4" parent="Map/Environment" index="6" instance=ExtResource( 5 )]
+position = Vector2( 344, 264 )
+rotation = -4.71239
+
+[node name="LaserButton" type="Area2D" parent="Map/Environment" index="7"]
+editor/display_folded = true
+position = Vector2( 312, 248 )
+script = ExtResource( 6 )
+laser_cooldown = 5
+laser_duration = 0.8
+
+[node name="ButtonSprite" type="Sprite" parent="Map/Environment/LaserButton" index="0"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+hframes = 5
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Map/Environment/LaserButton" index="1"]
+playback_speed = 4.0
+anims/default = SubResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Environment/LaserButton" index="2"]
+scale = Vector2( 7, 7 )
+shape = SubResource( 6 )
+
+[node name="Cooldown" type="Timer" parent="Map/Environment/LaserButton" index="3"]
+wait_time = 0.01
+
+[node name="Emitters" type="Node2D" parent="Map/Environment/LaserButton" index="4"]
+
+[node name="Emitter1" type="Sprite" parent="Map/Environment/LaserButton/Emitters" index="0"]
+position = Vector2( -144, -32 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+hframes = 2
+frame = 1
+
+[node name="Emitter2" type="Sprite" parent="Map/Environment/LaserButton/Emitters" index="1"]
+position = Vector2( -144, -96 )
+rotation = -3.14159
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+hframes = 2
+frame = 1
+
+[node name="LaserButton2" type="Area2D" parent="Map/Environment" index="8"]
+editor/display_folded = true
+position = Vector2( 328, 136 )
+script = ExtResource( 6 )
+laser_cooldown = 5
+laser_duration = 0.8
+
+[node name="ButtonSprite" type="Sprite" parent="Map/Environment/LaserButton2" index="0"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+hframes = 5
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Map/Environment/LaserButton2" index="1"]
+playback_speed = 4.0
+anims/default = SubResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Environment/LaserButton2" index="2"]
+scale = Vector2( 7, 7 )
+shape = SubResource( 8 )
+
+[node name="Cooldown" type="Timer" parent="Map/Environment/LaserButton2" index="3"]
+wait_time = 0.01
+
+[node name="Emitters" type="Node2D" parent="Map/Environment/LaserButton2" index="4"]
+
+[node name="Emitter1" type="Sprite" parent="Map/Environment/LaserButton2/Emitters" index="0"]
+position = Vector2( 144, 96 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+hframes = 2
+frame = 1
+
+[node name="Emitter2" type="Sprite" parent="Map/Environment/LaserButton2/Emitters" index="1"]
+position = Vector2( 144, 32 )
+rotation = -3.14159
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+hframes = 2
+frame = 1
+
+[node name="Spawn Points" parent="Map" index="2"]
+editor/display_folded = true
+visible = false
+
+[node name="Spawn Point" parent="Map/Spawn Points" index="0" instance=ExtResource( 9 )]
+position = Vector2( 376, 216 )
+
+[node name="Spawn Point2" parent="Map/Spawn Points" index="1" instance=ExtResource( 9 )]
+position = Vector2( 264, 168 )
+
+[node name="Player UI" parent="." index="2"]
+editor/display_folded = true
+
+[node name="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource( 10 )
+[connection signal="body_entered" from="Map/Environment/LaserButton" to="Map/Environment/LaserButton" method="_on_LaserButton_body_entered"]
+[connection signal="timeout" from="Map/Environment/LaserButton/Cooldown" to="Map/Environment/LaserButton" method="_on_Cooldown_timeout"]
+[connection signal="body_entered" from="Map/Environment/LaserButton2" to="Map/Environment/LaserButton2" method="_on_LaserButton_body_entered"]
+[connection signal="timeout" from="Map/Environment/LaserButton2/Cooldown" to="Map/Environment/LaserButton2" method="_on_Cooldown_timeout"]

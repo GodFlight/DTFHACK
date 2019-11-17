@@ -72,7 +72,6 @@ func start_game():
 	var pid = get_tree().get_network_unique_id()
 	if pid == 1:
 		rpc("_start")
-	print("Start game")
 
 remotesync func _start():
 	_load_level()
@@ -82,10 +81,12 @@ remotesync func _start():
 		Respawn.init()
 		for pid in player_info:
 			Respawn.player(pid)
+		Match.start_game()
 
 
 func _load_level():
-	get_node("/root/Control").queue_free()
+	if get_node("/root/Control") != null:
+		get_node("/root/Control").queue_free()
 	var node = current_map.instance()
 	get_node("/root/").add_child(node)
 	node.set_name("Game")
@@ -109,6 +110,17 @@ func _load_other_players():
 		player_node.set_name(str(pid))
 		player_node.set_network_master(pid)
 		get_node("/root/Game").add_child(player_node)
+
+
+func reset_score():
+	for pid in player_info:
+		player_info[pid].score = 0
+	rpc("sync_pinfo", player_info)
+
+
+remote func sync_pinfo(pinfo):
+	player_info = pinfo
+	emit_signal("player_info_updated")
 
 
 func _ready():

@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 			
 func deal_damage(body : PhysicsBody2D):
 	if body and body.has_method("damage"):
-		body.damage(42)
+		body.damage(42, 0)
 
 
 func _on_Trap_body_exited(body: PhysicsBody2D) -> void:

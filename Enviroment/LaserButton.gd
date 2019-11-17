@@ -3,7 +3,10 @@ extends Area2D
 export(int) var laser_cooldown = 15
 export(float) var laser_duration = 0
 export(Color) var laser_color = "#ff0000"
+
 var is_active : bool = true
+
+var laser_line_resource = preload("res://Enviroment/LaserLine.tscn")
 
 func _ready() -> void:
 	$AnimationPlayer.play("default")
@@ -12,21 +15,39 @@ func _ready() -> void:
 
 
 func create_lasers():
-	var add_laser : bool = true
+	var add_laser_flag : bool = true
 	var laser
 
 	for node in $Emitters.get_children():
-		if add_laser:
-			laser = Line2D.new()
+		if add_laser_flag:
+			laser = laser_line_resource.instance()
 			add_child(laser)
-			laser.add_point(node.position)
-			laser.default_color = laser_color
-			laser.width = 4
-			laser.visible = false
-			add_laser = false
+			create_laser_line(laser, node.position)
+			add_laser_flag = false
 			continue
+		create_laser_collider(laser, laser.get_node("Area2D"))
 		laser.add_point(node.position)
-		add_laser = true
+		add_laser_flag = true
+
+
+func create_laser_line(laser, pos : Vector2):
+	laser.add_point(pos)
+	laser.default_color = laser_color
+	laser.width = 4	
+	laser.visible = false
+
+
+func create_laser_collider(laser, laser_area : Area2D):
+	laser.add_child(laser_area)
+	laser_area.connect("body_entered", self, "deal_damage")
+	laser_area.position.x = (laser.get_point_position(0).x + laser.get_point_position(1).x) / 2
+	laser_area.position.y = (laser.get_point_position(0).y + laser.get_point_position(1).y) / 2
+	if laser.get_point_position(0).x - laser.get_point_position(1).x == 0:
+		laser_area.global_scale.y = abs(laser.get_point_position(0).y - laser.get_point_position(1).y) / 2
+		laser_area.global_scale.x = laser.width
+	else:
+		laser_area.global_scale.x = abs(laser.get_point_position(0).x - laser.get_point_position(1).x) / 2
+		laser_area.global_scale.y = laser.width
 
 
 func _on_LaserButton_body_entered(body: PhysicsBody2D) -> void:
@@ -59,3 +80,9 @@ func hide_lasers():
 func _on_Cooldown_timeout() -> void:
 	is_active = true
 	$AnimationPlayer.play("default")
+
+
+func deal_damage(body : PhysicsBody2D):
+	if body and body.has_method("damage"):
+		body.damage(42, 0)
+

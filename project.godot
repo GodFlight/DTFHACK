@@ -23,6 +23,7 @@ config/icon="res://Assets/icon.png"
 
 Lobby="*res://Network/Lobby.gd"
 Respawn="*res://Network/Respawn.gd"
+Match="*res://Network/Match.gd"
 
 [display]
 
@@ -64,6 +65,10 @@ player_down={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[physics]
+
+common/physics_fps=200
 
 [rendering]
 

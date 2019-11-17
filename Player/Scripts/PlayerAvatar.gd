@@ -99,14 +99,15 @@ func area_collision(area: Area2D):
 
 func collision(body: PhysicsBody2D):
 	if body and body != self and body.has_method("damage") and not body.is_dead:
-		body.damage(999)
+		body.damage(999, int($"..".name))
 	pass
 
-
-func damage(amount: int):
+#	You're a pepega, boi
+func damage(amount: int, pid):
 	if get_tree().get_network_unique_id() == 1:
 		is_dead = true
-		Lobby.add_score(int($"..".name))
+		if pid > 0:
+			Lobby.add_score(pid)
 		Respawn.call_rpc(int($"..".name))
 
 func slow(percent : int):
