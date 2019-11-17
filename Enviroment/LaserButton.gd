@@ -17,23 +17,24 @@ func _ready() -> void:
 func create_lasers():
 	var add_laser_flag : bool = true
 	var laser
-
+	
 	for node in $Emitters.get_children():
 		if add_laser_flag:
 			laser = laser_line_resource.instance()
 			add_child(laser)
-			create_laser_line(laser, node.position)
+			create_laser_line(laser, node.position, 0)
 			add_laser_flag = false
 			continue
+		
+		laser.set_point_position(1, node.position)
 		create_laser_collider(laser, laser.get_node("Area2D"))
-		laser.add_point(node.position)
 		add_laser_flag = true
 
 
-func create_laser_line(laser, pos : Vector2):
-	laser.add_point(pos)
+func create_laser_line(laser, pos : Vector2, laser_nbr : int):
+	laser.set_point_position(laser_nbr, pos)
 	laser.default_color = laser_color
-	laser.width = 4	
+	laser.width = 4
 	laser.visible = false
 
 
@@ -42,12 +43,12 @@ func create_laser_collider(laser, laser_area : Area2D):
 	laser_area.connect("body_entered", self, "deal_damage")
 	laser_area.position.x = (laser.get_point_position(0).x + laser.get_point_position(1).x) / 2
 	laser_area.position.y = (laser.get_point_position(0).y + laser.get_point_position(1).y) / 2
-	if laser.get_point_position(0).x - laser.get_point_position(1).x == 0:
-		laser_area.global_scale.y = abs(laser.get_point_position(0).y - laser.get_point_position(1).y) / 2
-		laser_area.global_scale.x = laser.width
+	if round(laser.get_point_position(0).x) - round(laser.get_point_position(1).x) == 0:
+		laser_area.scale.y = abs(laser.get_point_position(0).y - laser.get_point_position(1).y) / 2
+		laser_area.scale.x = laser.width
 	else:
-		laser_area.global_scale.x = abs(laser.get_point_position(0).x - laser.get_point_position(1).x) / 2
-		laser_area.global_scale.y = laser.width
+		laser_area.scale.x = abs(laser.get_point_position(0).x - laser.get_point_position(1).x) / 2
+		laser_area.scale.y = laser.width
 
 
 func _on_LaserButton_body_entered(body: PhysicsBody2D) -> void:
@@ -69,12 +70,14 @@ func show_lasers():
 	for node in get_children():
 		if node is Line2D:
 			node.visible = true
+			node.get_node("Area2D").monitoring = true
 
 
 func hide_lasers():
 	for node in get_children():
 		if node is Line2D:
 			node.visible = false
+			node.get_node("Area2D").monitoring = false
 			
 		
 func _on_Cooldown_timeout() -> void:
