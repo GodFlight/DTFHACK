@@ -109,6 +109,17 @@ func _load_other_players():
 		get_node("/root/Game").add_child(player_node)
 
 
+func reset_score():
+	for pid in player_info:
+		player_info[pid].score = 0
+	rpc("sync_pinfo", player_info)
+
+
+remote func sync_pinfo(pinfo):
+	player_info = pinfo
+	emit_signal("player_info_updated")
+
+
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")

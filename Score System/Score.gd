@@ -22,6 +22,7 @@ func _ready():
 		}
 		ct += 1
 	time_label = $"HBoxContainer/Time Left/Time"
+	_refresh_score()
 
 func _refresh_score():
 	for pid in score_labels:

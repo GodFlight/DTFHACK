@@ -37,6 +37,7 @@ func _process(delta):
 			get_node("/root/Game").name = "Game_Old"
 			get_node("/root/Game_Old").queue_free()
 			rpc("clean_map")
+			Lobby.reset_score()
 			Lobby.start_game()
 			pass
 		elif Input.is_key_pressed(KEY_B):

@@ -66,6 +66,10 @@ player_down={
  ]
 }
 
+[physics]
+
+common/physics_fps=200
+
 [rendering]
 
 environment/default_clear_color=Color( 0.105882, 0.109804, 0.2, 1 )
