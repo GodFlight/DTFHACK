@@ -14,7 +14,7 @@ var player_info = {}
 var player_name
 var player_color = Color.black
 var player_scene = preload("res://Player/Character.tscn")
-var current_map = preload("res://Maps/Map1.tscn")
+var current_map = preload("res://Maps/Map3.tscn")
 
 signal player_sent_info
 signal session_ended
@@ -28,8 +28,6 @@ func __debug_launch():
 	start_game()
 
 func create_server_press(port_str, pl_name):
-	print("Server creation!")
-	print("Player: ", pl_name, "	Port: ", port_str)
 	a.shuffle()	
 	player_name = pl_name
 	player_color = player_colors[a[0]]
@@ -49,9 +47,6 @@ func create_server_press(port_str, pl_name):
 
 
 func connect_to_server_press(address_str, port_str, pl_name):
-	print("Client creation!")
-	print("Player: ", pl_name, "	Server: ", address_str, "	Port: ", port_str)
-	
 	player_name = pl_name
 	var peer = NetworkedMultiplayerENet.new()
 	var err = peer.create_client(address_str, int(port_str))
@@ -82,6 +77,7 @@ remotesync func _start():
 		for pid in player_info:
 			Respawn.player(pid)
 		Match.start_game()
+	emit_signal("player_info_updated")
 
 
 func _load_level():
@@ -134,7 +130,6 @@ func _ready():
 	a.push_back(1)
 	a.push_back(2)
 	a.push_back(3)
-	print(a[0])
 
 
 # Called on server and every client
@@ -188,7 +183,7 @@ remote func register_player(pl_name):
 		"score": 0
 	}
 	var my_id = get_tree().get_network_unique_id()
-	if my_id == 1: #
+	if my_id == 1:
 		var pl_id = len(player_info) - 1
 		player_info[id].color = player_colors[a[pl_id]]
 		player_info[id].type = a[pl_id]
