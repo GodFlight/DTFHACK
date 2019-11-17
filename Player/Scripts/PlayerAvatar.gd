@@ -33,12 +33,14 @@ func _process(delta):
 	var input = Vector2()
 	if Input.is_action_just_pressed("player_down"):
 		input.y = 1
-	if Input.is_action_just_pressed("player_up"):
+	elif Input.is_action_just_pressed("player_up"):
 		input.y = -1
-	if Input.is_action_just_pressed("player_right"):
+	elif Input.is_action_just_pressed("player_right"):
 		input.x = 1
-	if Input.is_action_just_pressed("player_left"):
+	elif Input.is_action_just_pressed("player_left"):
 		input.x = -1
+	if input.x != 0 && input.y != 0:
+		print(input)
 #	if _possible_to_move(delta, input):
 #		return
 #	print(velocity)
