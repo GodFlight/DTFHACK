@@ -42,7 +42,7 @@ func get_maps_slice(map_dict, map):
 	for map_element in map_dict:
 		if map_dict[map_element] != map:
 			slice[i] = map_dict[map_element]
-		i += 1
+			i += 1
 	return slice
 	
 func get_maps_dict(pl_count):
@@ -58,19 +58,16 @@ func get_next_map():
 	randomize()
 	var pl_count = len(player_info)
 	var map_dict = get_maps_dict(pl_count)
-	if map_dict == null:
-		print("HOUSTON, WE HAVE A PROBLEM")
-		return null
 	if (current_map == null):
-		print("THERE WAS NOT ANY MAP, SO... YOU KNOW")
-		return map_dict[randi() % len(map_dict)]
+		next_map = map_dict[randi() % len(map_dict)]
+		return next_map
 	else:
 		var slice = get_maps_slice(map_dict, current_map)
 		if (len(slice) == 0):
-			print("THERE IS NO OTHER MAP!")
-			return current_map
-		return map_dict[randi() % len(map_dict)]
-	print("I DONT EVEN KNOW WHAT HAPPENED")
+			next_map = current_map
+			return next_map
+		next_map = slice[randi() % len(slice)]
+		return next_map
 
 
 func __debug_launch():
