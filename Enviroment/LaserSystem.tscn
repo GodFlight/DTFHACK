@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Enviroment/LaserButton.gd" type="Script" id=1]
+[ext_resource path="res://Assets/laser_plate.png" type="Texture" id=2]
+[ext_resource path="res://Assets/laser_beam.png" type="Texture" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "default"
+length = 3.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("ButtonSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1.6, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1, 1 )
+
+[node name="LaserButton" type="Area2D"]
+position = Vector2( 104, 120 )
+script = ExtResource( 1 )
+laser_cooldown = 5
+laser_duration = 0.8
+
+[node name="ButtonSprite" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+hframes = 5
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 4.0
+anims/default = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( 7, 7 )
+shape = SubResource( 2 )
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 0.01
+
+[node name="Emitters" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="Emitter1" type="Sprite" parent="Emitters"]
+position = Vector2( 0, 32 )
+rotation = 1.57079
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+hframes = 2
+frame = 1
+
+[node name="Emitter2" type="Sprite" parent="Emitters"]
+position = Vector2( 80, 32 )
+rotation = -1.57079
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+hframes = 2
+frame = 1
+[connection signal="body_entered" from="." to="." method="_on_LaserButton_body_entered"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_Cooldown_timeout"]

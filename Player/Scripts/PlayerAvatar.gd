@@ -111,4 +111,3 @@ func damage(amount: int):
 
 func slow(percent : int):
 	speed = base_speed - (base_speed / 100 * percent)
-	print("Slowing down by ", percent, " %")
