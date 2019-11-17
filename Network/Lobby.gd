@@ -77,8 +77,6 @@ func __debug_launch():
 	start_game()
 
 func create_server_press(port_str, pl_name):
-	print("Server creation!")
-	print("Player: ", pl_name, "	Port: ", port_str)
 	a.shuffle()	
 	player_name = pl_name
 	player_color = player_colors[a[0]]
@@ -98,9 +96,6 @@ func create_server_press(port_str, pl_name):
 
 
 func connect_to_server_press(address_str, port_str, pl_name):
-	print("Client creation!")
-	print("Player: ", pl_name, "	Server: ", address_str, "	Port: ", port_str)
-	
 	player_name = pl_name
 	var peer = NetworkedMultiplayerENet.new()
 	var err = peer.create_client(address_str, int(port_str))
@@ -133,10 +128,11 @@ remotesync func _start(map):
 		for pid in player_info:
 			Respawn.player(pid)
 		Match.start_game()
+	emit_signal("player_info_updated")
 
 
 func _load_level():
-	if get_node("/root/Control") != null:
+	if get_node("/root").has_node("Control"):
 		get_node("/root/Control").queue_free()
 	var node = current_map.instance()
 	get_node("/root/").add_child(node)
@@ -185,7 +181,6 @@ func _ready():
 	a.push_back(1)
 	a.push_back(2)
 	a.push_back(3)
-	print(a[0])
 
 
 # Called on server and every client
@@ -239,12 +234,14 @@ remote func register_player(pl_name):
 		"score": 0
 	}
 	var my_id = get_tree().get_network_unique_id()
-	if my_id == 1: #
+	if my_id == 1:
 		var pl_id = len(player_info) - 1
 		player_info[id].color = player_colors[a[pl_id]]
 		player_info[id].type = a[pl_id]
 #		player_info[id].type = len(player_info) - 1
+		
 		rpc("sync_info", id, player_info[id])
+		rpc("sync_pinfo", player_info)
 	emit_signal("player_sent_info")
 
 remotesync func sync_info(pid, info):

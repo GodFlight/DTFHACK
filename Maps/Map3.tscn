@@ -149,6 +149,9 @@ tracks/0/keys = {
 [node name="Map" parent="." index="0"]
 editor/display_folded = false
 
+[node name="Map" parent="." index="0"]
+editor/display_folded = false
+
 [node name="Graphics" parent="Map" index="0"]
 editor/display_folded = false
 
@@ -461,7 +464,7 @@ hframes = 2
 frame = 1
 
 [node name="Spawn Points" parent="Map" index="2"]
-editor/display_folded = true
+visible = false
 
 [node name="Spawn Point" parent="Map/Spawn Points" index="0" instance=ExtResource( 8 )]
 position = Vector2( 328, 120 )

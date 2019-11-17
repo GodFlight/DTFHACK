@@ -126,5 +126,3 @@ anims/Fly = SubResource( 4 )
 anims/Idle = SubResource( 5 )
 anims/Jump = SubResource( 6 )
 anims/Spawn = SubResource( 7 )
-
-[node name="Node2D" type="Node2D" parent="."]

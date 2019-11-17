@@ -18,7 +18,8 @@ func _ready():
 		node.get_node("Score").text = "%06d" % Lobby.player_info[pid].score
 		node.show()
 		score_labels[pid] = {
-			"node": node.get_node("Score")
+			"node": node.get_node("Score"),
+			"name_node": node.get_node("Name")
 		}
 		ct += 1
 	time_label = $"HBoxContainer/Time Left/Time"
@@ -27,6 +28,7 @@ func _ready():
 func _refresh_score():
 	for pid in score_labels:
 		score_labels[pid].node.text = "%06d" % Lobby.player_info[pid].score
+		score_labels[pid].name_node.modulate = Lobby.player_info[pid].color
 
 func _refresh_time(time_left):
 	time_label.text = str(int(time_left) / 60) + ":" + "%02d" % (int(time_left) % 60)
