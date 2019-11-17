@@ -2,7 +2,8 @@ extends KinematicBody2D
 
 onready var velocity = Vector2.ZERO
 onready var tmp_velocity = velocity
-const speed = 400
+const base_speed = 400
+var speed = 0
 var one_tap = true
 var is_controlled = false
 
@@ -10,6 +11,9 @@ func _ready():
 	$AreaAttack.connect("area_entered", self, "area_collision")
 	$AreaAttack.connect("body_entered", self, "collision")
 	$AnimationPlayer.play("Idle")
+	speed = base_speed
+	slow(100)
+	slow(0)
 #	$AreaTakeDamage.connect("area_entered", self, "damage")
 	pass
 
@@ -39,11 +43,7 @@ func _process(delta):
 		input.x = 1
 	elif Input.is_action_just_pressed("player_left"):
 		input.x = -1
-	if input.x != 0 && input.y != 0:
-		print(input)
-#	if _possible_to_move(delta, input):
-#		return
-#	print(velocity)
+#	print(position)
 	if velocity == Vector2.ZERO and input != Vector2.ZERO:
 		var body_angle = rotation_degrees + 90
 		var input_angle = rad2deg(input.angle())
@@ -54,11 +54,10 @@ func _process(delta):
 		rpc("_change_body_direction")
 
 func _physics_process(delta : float):
-	var col = move_and_collide(velocity * delta * speed)
-	if col:
+	var move = move_and_slide(velocity * speed)
+	if move == Vector2.ZERO:
 		if tmp_velocity != Vector2.ZERO:
 			_turn_around()
-			
 		change_velocity(Vector2.ZERO)
 
 remotesync func change_velocity(input: Vector2):
@@ -131,4 +130,5 @@ remotesync func damage(amount : int):
 #	print("Taken ", amount, " damage!")
 
 func slow(percent : int):
+	speed = base_speed - (base_speed / 100 * percent)
 	print("Slowing down by ", percent, " %")
