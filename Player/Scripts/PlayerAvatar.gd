@@ -14,6 +14,7 @@ func _ready():
 	pass
 
 remotesync func change_sprite(num):
+	$AnimationPlayer.play("Idle")
 	velocity = Vector2.ZERO
 	rotation_degrees = 0
 	match num:
@@ -120,7 +121,9 @@ func collision(body: PhysicsBody2D):
 #		body.get_node("..").damage(1)
 #
 remotesync func damage(amount : int):
-	Respawn.player(int($"..".name))
+	print($"..".name)
+	Respawn.call_rpc(int($"..".name))
+#	Respawn.player(int($"..".name))
 #	print("PEPEGUS MAXIMUS")
 #	queue_free()
 #	print("Taken ", amount, " damage!")
