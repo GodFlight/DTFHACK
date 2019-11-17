@@ -7,7 +7,7 @@
 extents = Vector2( 7.6, 4.72106 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 1.04765, 5.29291 )
+extents = Vector2( 2.6151, 2.78603 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "Death"
@@ -58,7 +58,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 resource_name = "Jump"
 length = 0.4
 tracks/0/type = "value"
@@ -74,8 +74,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "Spawn"
+[sub_resource type="Animation" id=7]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -118,14 +117,14 @@ region_rect = Rect2( 0, 0, 104, 8 )
 [node name="AreaAttack" type="Area2D" parent="PlayerAvatar"]
 
 [node name="Attack" type="CollisionShape2D" parent="PlayerAvatar/AreaAttack"]
-position = Vector2( 0, -2.26 )
+position = Vector2( 0, -4.08 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerAvatar"]
 anims/Death = SubResource( 3 )
 anims/Fly = SubResource( 4 )
 anims/Idle = SubResource( 5 )
-anims/Jump = SubResource( 7 )
-anims/Spawn = SubResource( 6 )
+anims/Jump = SubResource( 6 )
+anims/Spawn = SubResource( 7 )
 
 [node name="Node2D" type="Node2D" parent="."]

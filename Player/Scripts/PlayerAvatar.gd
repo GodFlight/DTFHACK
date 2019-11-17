@@ -2,18 +2,22 @@ extends KinematicBody2D
 
 onready var velocity = Vector2.ZERO
 onready var tmp_velocity = velocity
-const speed = 400
+const base_speed = 400
+var speed = 0
 var one_tap = true
 var is_controlled = false
+var is_dead = false
 
 func _ready():
 	$AreaAttack.connect("area_entered", self, "area_collision")
 	$AreaAttack.connect("body_entered", self, "collision")
 	$AnimationPlayer.play("Idle")
+	speed = base_speed
 #	$AreaTakeDamage.connect("area_entered", self, "damage")
 	pass
 
 remotesync func change_sprite(num):
+	is_dead = false
 	$AnimationPlayer.play("Idle")
 	velocity = Vector2.ZERO
 	rotation_degrees = 0
@@ -39,11 +43,7 @@ func _process(delta):
 		input.x = 1
 	elif Input.is_action_just_pressed("player_left"):
 		input.x = -1
-	if input.x != 0 && input.y != 0:
-		print(input)
-#	if _possible_to_move(delta, input):
-#		return
-#	print(velocity)
+#	print(position)
 	if velocity == Vector2.ZERO and input != Vector2.ZERO:
 		var body_angle = rotation_degrees + 90
 		var input_angle = rad2deg(input.angle())
@@ -54,11 +54,10 @@ func _process(delta):
 		rpc("_change_body_direction")
 
 func _physics_process(delta : float):
-	var col = move_and_collide(velocity * delta * speed)
-	if col:
+	var move = move_and_slide(velocity * speed)
+	if move == Vector2.ZERO:
 		if tmp_velocity != Vector2.ZERO:
 			_turn_around()
-			
 		change_velocity(Vector2.ZERO)
 
 remotesync func change_velocity(input: Vector2):
@@ -92,7 +91,7 @@ func _turn_around():
 
 func area_collision(area: Area2D):
 	var mb_player = area.get_node("..")
-	if mb_player != self and mb_player.has_method("damage"):
+	if not is_dead and mb_player != self and mb_player.has_method("damage"):
 		print("Player[", $"..".name, "] booped Player[", mb_player.get_node("..").name, "]")
 #		print("Id[", get_tree().get_network_unique_id(),"]	Player[", $"..".name, "] booped Player[", mb_player.get_node("..").name, "]")
 #		mb_player.rpc("change_velocity", -mb_player.velocity)
@@ -103,7 +102,7 @@ func area_collision(area: Area2D):
 
 
 func collision(body: PhysicsBody2D):
-	if body and body != self and body.has_method("damage"):
+	if not is_dead and body and body != self and body.has_method("damage"):
 		print("Player[", $"..".name, "] attacked Player[", body.get_node("..").name, "]")
 #		var id = get_tree().get_network_unique_id()
 #		print("Id[Player[", id, "] attacked Player[", body.get_node("..").name, "]")
@@ -122,13 +121,16 @@ func collision(body: PhysicsBody2D):
 #			return
 #		body.get_node("..").damage(1)
 #
-remotesync func damage(amount : int):
-	print($"..".name)
-	Respawn.call_rpc(int($"..".name))
+func damage(amount : int):
+#	print($"..".name)
+	if get_tree().get_network_unique_id() == 1:
+		is_dead = true
+		Respawn.call_rpc(int($"..".name))
 #	Respawn.player(int($"..".name))
 #	print("PEPEGUS MAXIMUS")
 #	queue_free()
 #	print("Taken ", amount, " damage!")
 
 func slow(percent : int):
+	speed = base_speed - (base_speed / 100 * percent)
 	print("Slowing down by ", percent, " %")

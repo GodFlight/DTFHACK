@@ -14,10 +14,14 @@ var player_info = {}
 var player_name
 var player_color = Color.black
 var player_scene = preload("res://Player/Character.tscn")
-var current_map = preload("res://Maps/Map3.tscn")
+var current_map = preload("res://Maps/Map1.tscn")
 
 signal player_sent_info
 signal session_ended
+
+func __debug_launch():
+	create_server_press("1488", "FUCKMEINTHEASS")
+	start_game()
 
 func create_server_press(port_str, pl_name):
 	print("Server creation!")
@@ -31,7 +35,7 @@ func create_server_press(port_str, pl_name):
 		"type": 0
 	}
 	var peer = NetworkedMultiplayerENet.new()
-	var err = peer.create_server(SERVER_PORT, MAX_PLAYERS)
+	var err = peer.create_server(int(port_str), MAX_PLAYERS)
 	if (err != OK):
 		emit_signal("session_ended")
 		end_session()
@@ -45,7 +49,7 @@ func connect_to_server_press(address_str, port_str, pl_name):
 	
 	player_name = pl_name
 	var peer = NetworkedMultiplayerENet.new()
-	var err = peer.create_client(address_str, SERVER_PORT)
+	var err = peer.create_client(address_str, int(port_str))
 	if (err != OK):
 		emit_signal("session_ended")
 		end_session()
