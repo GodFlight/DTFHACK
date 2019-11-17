@@ -13,8 +13,6 @@ func _ready():
 	$AreaAttack.connect("body_entered", self, "collision")
 	$AnimationPlayer.play("Idle")
 	speed = base_speed
-	slow(100)
-	slow(0)
 #	$AreaTakeDamage.connect("area_entered", self, "damage")
 	pass
 
