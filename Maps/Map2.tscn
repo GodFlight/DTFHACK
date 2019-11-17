@@ -132,8 +132,6 @@ frame = 7
 playback_speed = 4.0
 anims/default = SubResource( 4 )
 
-[node name="Delay" type="Timer" parent="Map/Environment/PortalSystem3" index="2"]
-
 [node name="Spikes2" parent="Map/Environment" index="1" instance=ExtResource( 4 )]
 position = Vector2( 424, 120 )
 rotation = -3.14159
@@ -186,8 +184,6 @@ frame = 7
 playback_speed = 4.0
 anims/default = SubResource( 7 )
 
-[node name="Delay" type="Timer" parent="Map/Environment/PortalSystem" index="2"]
-
 [node name="PortalSystem2" type="Node2D" parent="Map/Environment" index="4"]
 script = ExtResource( 2 )
 
@@ -233,8 +229,6 @@ frame = 7
 playback_speed = 4.0
 anims/default = SubResource( 4 )
 
-[node name="Delay" type="Timer" parent="Map/Environment/PortalSystem2" index="2"]
-
 [node name="Spawn Points" parent="Map" index="2"]
 visible = false
 
@@ -250,6 +244,3 @@ rotation = 3.14159
 
 [node name="Spikes2" parent="." index="3" instance=ExtResource( 4 )]
 position = Vector2( 392, 216 )
-[connection signal="timeout" from="Map/Environment/PortalSystem3/Delay" to="Map/Environment/PortalSystem3" method="_on_Delay_timeout"]
-[connection signal="timeout" from="Map/Environment/PortalSystem/Delay" to="Map/Environment/PortalSystem" method="_on_Delay_timeout"]
-[connection signal="timeout" from="Map/Environment/PortalSystem2/Delay" to="Map/Environment/PortalSystem2" method="_on_Delay_timeout"]
