@@ -1,7 +1,7 @@
 extends Node
 
-#const ROUND_TIME = 150
-const ROUND_TIME = 12
+const ROUND_TIME = 150
+#const ROUND_TIME = 12
 var timer
 var tick_timer
 var in_game

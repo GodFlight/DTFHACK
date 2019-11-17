@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func _on_Spikes_body_entered(body: PhysicsBody2D) -> void:
 	if is_active and body.has_method("damage"):
-		body.damage(21)
+		body.damage(21, 0)
 
 
 func _on_Timer_timeout() -> void:
