@@ -1,7 +1,7 @@
 extends Node
 
 var spawn_points = Array()
-var current_point = 0
+var current_point = 1
 
 func init():
 	randomize()
@@ -19,6 +19,6 @@ func player(pid):
 	avatar.rpc("sync_pos", pos)
 	avatar.rpc("respawn", Lobby.player_info[pid].type)
 	current_point += 1
-	if current_point == len(spawn_points):
-		current_point = 0
+	if current_point == len(spawn_points) + 1:
+		current_point = 1
 	pass
