@@ -69,7 +69,6 @@ func start_game():
 	var pid = get_tree().get_network_unique_id()
 	if pid == 1:
 		rpc("_start")
-	print("Start game")
 
 remotesync func _start():
 	_load_level()
@@ -83,7 +82,8 @@ remotesync func _start():
 
 
 func _load_level():
-	get_node("/root/Control").queue_free()
+	if get_node("/root/Control") != null:
+		get_node("/root/Control").queue_free()
 	var node = current_map.instance()
 	get_node("/root/").add_child(node)
 	node.set_name("Game")
