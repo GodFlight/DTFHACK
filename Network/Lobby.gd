@@ -178,7 +178,7 @@ remote func register_player(pl_name):
 	var my_id = get_tree().get_network_unique_id()
 	if my_id == 1: #
 		var pl_id = len(player_info) - 1
-		player_info[id].color = player_color[a[pl_id]]
+		player_info[id].color = player_colors[a[pl_id]]
 		player_info[id].type = a[pl_id]
 #		player_info[id].type = len(player_info) - 1
 		rpc("sync_info", id, player_info[id])
