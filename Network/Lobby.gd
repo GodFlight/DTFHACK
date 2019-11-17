@@ -70,10 +70,6 @@ func get_next_map():
 		return next_map
 
 
-func __debug_launch():
-	create_server_press("1488", "FUCKMEINTHEASS")
-	start_game()
-
 func create_server_press(port_str, pl_name):
 	a.shuffle()	
 	player_name = pl_name
