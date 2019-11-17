@@ -188,7 +188,9 @@ remote func register_player(pl_name):
 		player_info[id].color = player_colors[a[pl_id]]
 		player_info[id].type = a[pl_id]
 #		player_info[id].type = len(player_info) - 1
+		
 		rpc("sync_info", id, player_info[id])
+		rpc("sync_pinfo", player_info)
 	emit_signal("player_sent_info")
 
 remotesync func sync_info(pid, info):

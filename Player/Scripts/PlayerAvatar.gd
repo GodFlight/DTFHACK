@@ -23,14 +23,12 @@ func check_borders():
 	
 	node.cast_to = Vector2(0, -10)
 	node.force_raycast_update()
-	print(node.is_colliding())
 	if node.is_colliding():
 		node.queue_free()
 		return 180
 	
 	node.cast_to = Vector2(0, 10)
 	node.force_raycast_update()
-	print(node.is_colliding())
 	if node.is_colliding():
 		node.queue_free()
 		return 0
@@ -43,7 +41,6 @@ remotesync func change_sprite(num):
 	$AnimationPlayer.play("Idle")
 	velocity = Vector2.ZERO
 	rotation_degrees = check_borders()
-	print(rotation_degrees)
 	match num:
 		1:
 			$"Sprite".texture = preload("res://Assets/Characters/purple.png")
